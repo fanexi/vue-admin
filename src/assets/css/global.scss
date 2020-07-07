@@ -1,10 +1,10 @@
 $sidebarHeight:70px;
 $bgColor:#242f42;
 $navbar:220px;
+$shrinkNavbar:64px;
 $navbarHeight: calc(100% - #{$sidebarHeight});
 $baseMainWidth: 1279px;
-
-
+$textColor:#fff;
 
 body,
 div,
@@ -38,7 +38,7 @@ img {
 
 body {
     color: #000000;
-    background: #FFF;
+    background: $textColor;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -62,6 +62,13 @@ a:hover {
     text-decoration: underline;
 }
 
+.el-menu {
+    border-right: none;
+}
+
 :export {
-    bgColor: $bgColor
+    bgColor: $bgColor;
+    navbar: $navbar;
+    shrinkNavbar: $shrinkNavbar;
+    textColor: $textColor;
 }

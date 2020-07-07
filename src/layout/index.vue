@@ -1,7 +1,7 @@
 <template>
     <div class="app-wrapper hideSidebar mobile">
-        <Sidebar :isCollapse="isCollapse"></Sidebar>
-        <Navbar @setIsCollapse="setIsCollapse"></Navbar>
+        <Sidebar></Sidebar>
+        <Navbar></Navbar>
         <TagView></TagView>
     </div>
 </template>
@@ -12,20 +12,16 @@ import TagView from './tagView';
 export default {
     name: 'Layout',
     data() {
-        return {
-            isCollapse: ''
-        };
+        return {};
     },
     components: {
         Sidebar,
         Navbar,
         TagView
     },
-    methods: {
-        setIsCollapse(val) {
-            this.isCollapse = val;
-        }
-    }
+    computed: {},
+    created() {},
+    methods: {}
 };
 </script>
 <style lang="scss" scoped>

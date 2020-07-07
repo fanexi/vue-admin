@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "iconfont";
+  src: url('../iconfont/iconfont.eot?t=1594087740659');
+  /* IE9 */
+  src: url('../iconfont/iconfont.eot?t=1594087740659#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOQAAsAAAAACLgAAANDAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCfgqFGIRQATYCJAMMCwgABCAFhG0HRhueB8iuMQbXG6RJEe2RbR0bu3i8uh8L9XwUQjz8t1+778+szaKeRCNdLG8iRBKEytmKWcuUQqN7qDZwzmURtEhSxattraeDXSxJIjWAvv9rWgZhUmFQAg1YoT3MAaUvl5Gc+32ejJyQA4fc/EBysQA8wyQd3pKgtAo5CzqcA9aDPsEoNW12t7Yr0WI7lYrhzZLXyX3LpEDoCDcsf5RoP9zPdCmeb5UuGYFJ26dhUAINrOqq+MjugE6Qb5Hdg7HM1wkUc0Tg3s3Ta6YiUw8F4th3jUwlYpMLmkNTqGfczOIWqGZ1Zmdk3Di/H9+YRoVKLVFPdo6u7czmzbfR/V1dCwV5ex7Qd5GwDpCJw0xfR97LrYMVMVcwDxhXZfC2fwtj2Wj/4REqok5t7AHLmKWyRnJDZ9XkWF6FdQ9Qr1H4IQqBHwnX1adUVEdurUnzv6v0RQMy1zi2CXU+BKb4o+wpkxdoPzWA7lRO/gTvwoY1jGmiLmYNEC+pgXRKO5bFNYzpMzlWkDVrijvsaluKjUS9B7iyExk2EAxQUhdzDUxUUgNpmql8mbIKwWBYDzDlgqGIed8tSiJHdtVnV39O52ClX1NSw3UOTIJZlbL0bakqb0uKT9JgxVCW61ood8ZwegANEhzFou3kawSz8F4y7XtJvUy4JF1sqGoMWyOCSa2uHnG2RXYM8TD7kLo3HeT+AJC2cv8vx99ovKRae/ErZPBaWziWDBbIaJ4+f/AqyIF9WVKq9pQFmSFTismp0sluVRT8U0NDvvUNo+AMoRmR01BpmIWkaR6d8etQ07YBdU2bUKwx7m4bVsqL3MKqDYIw4ASVPs+QDLigM/4DNWP+UDcQeSgOo//ItsXwa5eMhqAN4x9YWZQ4ulNqbvMzuh+RwWGlQ3hHTv0kaMNxvHiLCXIbZ6pPd1qLA3OmGHT0NowigpwpQEuGS5HdTBk5Wd80nFCcqdnFkEEgGxj7AVYsJOFYk0Ut8fPPkOtDxMAFPUXRd4il/NWBRqYC0Le6BNRzLOsrn1xTNeEQ++YYiQEd86BIyxGQZ28LIIsYWtbI7MwoONIcqhv2b4iP7xIU6hdSVJEiKydGKsiWcNSOfWbi/9bqSdSayQAA') format('woff2'),
+    url('../iconfont/iconfont.woff?t=1594087740659') format('woff'),
+    url('../iconfont/iconfont.ttf?t=1594087740659') format('truetype'),
+    /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url('../iconfont/iconfont.svg?t=1594087740659#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-masterctrl:before {
+  content: "\e6df";
+}
+
+.icon-mirrorlightctrl:before {
+  content: "\e6e0";
+}

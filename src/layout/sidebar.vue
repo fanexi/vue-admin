@@ -1,11 +1,14 @@
 <template>
-    <div class="navbar">
+    <div
+        class="navbar"
+        :style="{ width: isCollapse ? global().shrinkNavbar : global().navbar }"
+    >
         <el-menu
             :collapse="isCollapse"
             align="left"
             :background-color="global().bgColor"
             :collapse-transition="false"
-            text-color="#fff"
+            :text-color="global().textColor"
             active-text-color="#409eff"
         >
             <el-submenu index="1">
@@ -25,6 +28,26 @@
                     <span slot="title">选项4</span>
                     <el-menu-item index="1-4-1">选项1</el-menu-item>
                 </el-submenu>
+                <el-menu-item-group>
+                    <span slot="title">分组一</span>
+                    <el-menu-item index="1-5">选项1</el-menu-item>
+                    <el-menu-item index="1-5">选项2</el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group>
+                    <span slot="title">分组一</span>
+                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-2">选项2</el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group>
+                    <span slot="title">分组一</span>
+                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-2">选项2</el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group>
+                    <span slot="title">分组一</span>
+                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-2">选项2</el-menu-item>
+                </el-menu-item-group>
             </el-submenu>
             <el-menu-item index="2">
                 <i class="el-icon-menu"></i>
@@ -42,19 +65,17 @@
     </div>
 </template>
 <script>
-import global from '@/assets/css/global.scss';
+import { mapGetters } from 'vuex';
 export default {
     name: 'Navbar',
     data() {
         return {};
     },
-    props: {
-        isCollapse: {
-            type: Boolean,
-            default: false
-        }
-    },
+
     created() {},
+    computed: {
+        ...mapGetters(['isCollapse'])
+    },
     methods: {
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
@@ -63,7 +84,7 @@ export default {
             console.log(key, keyPath);
         },
         global() {
-            return global;
+            return this.$global;
         }
     }
 };
@@ -74,8 +95,11 @@ export default {
     top: $sidebarHeight;
     bottom: 0;
     left: 0;
-    width: $navbar;
     height: $navbarHeight;
     background: $bgColor;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 </style>

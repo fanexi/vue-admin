@@ -5,12 +5,14 @@ import store from './store';
 import ElementUI from 'element-ui';
 import Cookies from 'js-cookie';
 import 'element-ui/lib/theme-chalk/index.css';
-import '@/assets/css/global.scss';
+import global from '@/assets/css/global.scss';
+import '@/assets/css/iconfont.css';
+
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium' // set element-ui default size
 });
 Vue.config.productionTip = false;
-
+Vue.prototype.$global = global;
 new Vue({
     router,
     store,

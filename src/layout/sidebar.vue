@@ -1,60 +1,16 @@
 <template>
     <div
         class="navbar"
-        :style="{ width: isCollapse ? global().shrinkNavbar : global().navbar }"
+        :style="{
+            width: isCollapse ? global().shrinkNavbar : global().navbar
+        }"
     >
-        <el-menu
-            :collapse="isCollapse"
-            :default-active="tabActive"
-            :background-color="global().bgColor"
-            :collapse-transition="false"
-            :text-color="global().textColor"
-            active-text-color="#20a0ff"
-            router
-            @select="handleSelect"
-            v-for="(item, index) in asyncRoutes"
-            :key="index"           
-        >
-            <el-submenu
-                v-if="item.children && item.children.length != 0"
-                :index="item.path"
-            >
-                <template slot="title">
-                    <i :class="item.meta.icon"></i>
-                    <span slot="title">{{ item.meta.title }}</span>
-                </template>
-                <div
-                    v-for="(itemSub, indexSub) in item.children"
-                    :key="indexSub"
-                >
-                    <el-submenu
-                        v-if="itemSub.children && itemSub.children.length != 0"
-                        :index="itemSub.path"
-                    >
-                        <span slot="title">{{ itemSub.meta.title }}</span>
-                        <el-menu-item :index="itemSub.path">{{
-                            itemSub.meta.title
-                        }}</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item v-else :index="itemSub.path">
-                        <template slot="title">
-                            <i :class="itemSub.meta.icon"></i>
-                            <span slot="title">{{ itemSub.meta.title }}</span>
-                        </template>
-                    </el-menu-item>
-                </div>
-            </el-submenu>
-            <el-menu-item v-else :index="item.path">
-                <template slot="title">
-                    <i :class="item.meta.icon"></i>
-                    <span slot="title">{{ item.meta.title }}</span>
-                </template>
-            </el-menu-item>
-        </el-menu>
+        <Menu></Menu>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import Menu from './menu';
 export default {
     name: 'Navbar',
     data() {
@@ -63,15 +19,12 @@ export default {
 
     created() {},
     computed: {
-        ...mapGetters(['isCollapse', 'asyncRoutes', 'tabActive'])
+        ...mapGetters(['isCollapse'])
+    },
+    components: {
+        Menu
     },
     methods: {
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleSelect(key) {
-             this.$store.dispatch('permission/setTabActive', key);
-        },
         global() {
             return this.$global;
         }
@@ -80,7 +33,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .navbar {
-    position: fixed;
+    position: absolute;
     top: $sidebarHeight;
     bottom: 0;
     left: 0;

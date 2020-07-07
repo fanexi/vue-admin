@@ -8,13 +8,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 import global from '@/assets/css/global.scss';
 import '@/assets/css/iconfont.css';
 Vue.use(ElementUI, {
-    size: Cookies.get('size') || 'medium' // set element-ui default size
+  size: Cookies.get('size') || 'medium' // set element-ui default size
 });
 Vue.config.productionTip = false;
 Vue.prototype.$global = global;
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 })

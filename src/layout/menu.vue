@@ -1,0 +1,61 @@
+<template>
+    <el-menu
+        :background-color="global().bgColor"
+        :collapse-transition="false"
+        :text-color="global().textColor"
+        active-text-color="#20a0ff"
+        router
+        unique-opened
+        :collapse="isCollapse"
+        :default-active="$route.path"
+        @select="handleSelect"
+    >
+        <childMenut :asyncRoutes="asyncRoutes"></childMenut>
+    </el-menu>
+</template>
+<script>
+import childMenut from './childMenu';
+import { mapGetters } from 'vuex';
+
+export default {
+    name: 'Menu',
+    data() {
+        return {
+            routeList: [],
+            openList: []
+        };
+    },
+    components: {
+        childMenut
+    },
+    computed: {
+        ...mapGetters(['isCollapse', 'asyncRoutes'])
+    },
+    watch: {},
+    mounted() {
+        this.routeList = this.flatten(this.asyncRoutes);
+        this.handleSelect(this.$route.path);
+    },
+    methods: {
+        global() {
+            return this.$global;
+        },
+        flatten(arr) {
+            return [].concat(
+                ...arr.map(item => {
+                    if (item.children && item.children.length != 0) {
+                        return [].concat(item, ...this.flatten(item.children));
+                    } else {
+                        return [].concat(item);
+                    }
+                })
+            );
+        },
+        handleSelect(key) {
+            this.$store.dispatch('permission/setTabActive', key);
+            let data = this.routeList.filter(item => item.path == key);
+            this.$store.dispatch('layout/setTablist', data);
+        }
+    }
+};
+</script>

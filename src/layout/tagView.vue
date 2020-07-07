@@ -8,7 +8,12 @@
             paddingLeft: isCollapse ? global().shrinkNavbar : global().navbar
         }"
     >
-        <el-tabs v-model="tabKey" type="card" class="tagContent">
+        <el-tabs
+            v-model="tabKey"
+            type="card"
+            class="tagContent"
+            @tab-click="handleClick"
+        >
             <el-tab-pane
                 v-for="item in tablist"
                 :key="item.path"
@@ -21,53 +26,38 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { deepClone } from '@/utils';
 export default {
     name: 'Navbar',
     data() {
         return {
-            tabKey: '',
-            tablist: []
+            tabKey: ''
         };
     },
     computed: {
-        ...mapGetters(['isCollapse', 'routes', 'tabActive'])
+        ...mapGetters(['isCollapse', 'tablist', 'tabActive'])
     },
     watch: {
         tabKey: function(path) {
-            this.$router.push(path);
+            if (path == 0 || !path) return;
             this.$store.dispatch('permission/setTabActive', path);
         },
-        tabActive:function(val){
-             this.tabKey = val;
+        tabActive: function(val) {
+            this.tabKey = val;
         }
     },
     created() {
-        this.tabKey = this.tabActive;
-        let tablist = deepClone(this.routes);
-        this.tablist = this.flatten(tablist);
+        this.tabKey = this.$route.path;
     },
-
     methods: {
         global() {
             return this.$global;
         },
-        flatten(arr) {
-            if (arr && arr.length != 0) {
-                return [].concat(
-                    ...arr.map(item => {
-                        if (item.children && item.children.length != 0) {
-                            return [].concat(...item.children);
-                        }
-                    })
-                );
-            }
-        },
+
         isAffix(tag) {
             return tag.meta && tag.meta.affix;
         },
-        handleTabClick(e) {
-            console.log(e);
+        handleClick(e) {
+            this.$router.push(e.name);
         },
         handleTabRemove() {}
     }

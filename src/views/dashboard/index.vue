@@ -1,6 +1,6 @@
 <template>
     <div class="Dashboard">
-        <el-button>默认按钮1111111111111111111111111111111111111111</el-button>
+        22222222222222222222222222
     </div>
 </template>
 <script>
@@ -12,10 +12,7 @@ export default {
         };
     },
     watch: {},
-    created() {
-      
-       
-    }
+    created() {}
 };
 </script>
 <style lang="scss" scoped>

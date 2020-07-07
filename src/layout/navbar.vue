@@ -18,7 +18,19 @@ export default {
             isCollapse: false
         };
     },
-    created() {},
+    mounted() {
+        let that = this;
+        window.onresize = function() {
+            let screenWidth = document.documentElement.clientWidth;
+            if (screenWidth < 1024) {
+                that.$store.dispatch('layout/setIsCollapse', true);
+                that.isCollapse=true
+            } else {
+                that.$store.dispatch('layout/setIsCollapse', false);
+                that.isCollapse=false
+            }
+        };
+    },
     watch: {
         isCollapse: function(val) {
             this.$store.dispatch('layout/setIsCollapse', val);

@@ -10,57 +10,48 @@
             :collapse-transition="false"
             :text-color="global().textColor"
             active-text-color="#409eff"
+            router
         >
-            <el-submenu index="1">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span slot="title">导航一</span>
-                </template>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                    <span slot="title">选项4</span>
-                    <el-menu-item index="1-4-1">选项1</el-menu-item>
+            <div v-for="item in routes" :key="item.path">
+                <el-submenu
+                    :index="item.path"
+                    v-if="item.children && item.children.length != 0"
+                >
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>{{ item.meta.title }}</span>
+                    </template>
+                    <div v-for="itemSub in item.children" :key="itemSub.path">
+                        <el-submenu
+                            v-if="
+                                itemSub.children && itemSub.children.length != 0
+                            "
+                            :index="itemSub.path"
+                        >
+                            <template slot="title">{{
+                                itemSub.meta.title
+                            }}</template>
+                            <div
+                                v-for="itemSubList in itemSub.children"
+                                :key="itemSubList.path"
+                            >
+                                <el-menu-item :index="itemSubList.path">{{
+                                    itemSubList.meta.title
+                                }}</el-menu-item>
+                            </div>
+                        </el-submenu>
+                        <el-menu-item-group v-else>
+                            <el-menu-item :index="itemSub.path">{{
+                                itemSub.meta.title
+                            }}</el-menu-item>
+                        </el-menu-item-group>
+                    </div>
                 </el-submenu>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-5">选项1</el-menu-item>
-                    <el-menu-item index="1-5">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group>
-                    <span slot="title">分组一</span>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-            </el-submenu>
-            <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-            </el-menu-item>
+                <el-menu-item :index="item.path" v-else>
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">{{ item.meta.title }}</span>
+                </el-menu-item>
+            </div>
         </el-menu>
     </div>
 </template>
@@ -72,9 +63,10 @@ export default {
         return {};
     },
 
-    created() {},
+    created() {
+    },
     computed: {
-        ...mapGetters(['isCollapse'])
+        ...mapGetters(['isCollapse','routes'])
     },
     methods: {
         handleOpen(key, keyPath) {

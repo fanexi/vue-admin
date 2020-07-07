@@ -1,19 +1,39 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Layout from '@/layout';
-// import Home from '@/views/home';
+import Dashboard from '@/views/dashboard';
 Vue.use(VueRouter);
+// 需要权限
+export const asyncRoutes = [
+    {
+        path: '/home',
+        name: 'home',
+        component: Layout,
+        meta: {
+            title: 'home',
+            icon: 'lock',
+            roles: ['admin', 'editor'] // you can set roles in root nav
+        }
+    }
+];
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'dashboard',
+        redirect: '/dashboard',
         component: Layout,
-        children: []
-    }
+        children: [
+            {
+                path: 'dashboard',
+                component: Dashboard,
+                name: 'Dashboard',
+                meta: { title: 'Dashboard', icon: 'dashboard' }
+            }
+        ]
+    },
+    ...asyncRoutes
 ];
 const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
     routes
 });
 export default router;

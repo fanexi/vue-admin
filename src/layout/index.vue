@@ -3,6 +3,7 @@
         <Sidebar></Sidebar>
         <Navbar></Navbar>
         <TagView></TagView>
+        <router-view  />
     </div>
 </template>
 <script>
@@ -20,15 +21,22 @@ export default {
         TagView
     },
     computed: {},
-    created() {},
+    created() {
+        console.log(this.$route);
+    },
     methods: {}
 };
 </script>
 <style lang="scss" scoped>
-.app-wrapper {
-    position: relative;
-    height: 100%;
+.app-wrapper {   
+    position: fixed;
     width: 100%;
-    overflow: hidden;
+    height: 100%;
+    .view {
+        padding-left: $navbar;
+        background: greenyellow;
+        width: $navbarWidth;
+        height: $navbarHeight;
+    }
 }
 </style>

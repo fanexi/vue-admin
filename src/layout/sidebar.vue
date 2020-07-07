@@ -5,53 +5,48 @@
     >
         <el-menu
             :collapse="isCollapse"
-            align="left"
+            :default-active="$router.path"
             :background-color="global().bgColor"
             :collapse-transition="false"
             :text-color="global().textColor"
-            active-text-color="#409eff"
+            active-text-color="#20a0ff"
             router
+            v-for="(item, index) in routes"
+            :key="index"
         >
-            <div v-for="item in routes" :key="item.path">
-                <el-submenu
-                    :index="item.path"
-                    v-if="item.children && item.children.length != 0"
-                >
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>{{ item.meta.title }}</span>
-                    </template>
-                    <div v-for="itemSub in item.children" :key="itemSub.path">
-                        <el-submenu
-                            v-if="
-                                itemSub.children && itemSub.children.length != 0
-                            "
-                            :index="itemSub.path"
-                        >
-                            <template slot="title">{{
-                                itemSub.meta.title
-                            }}</template>
-                            <div
-                                v-for="itemSubList in itemSub.children"
-                                :key="itemSubList.path"
-                            >
-                                <el-menu-item :index="itemSubList.path">{{
-                                    itemSubList.meta.title
-                                }}</el-menu-item>
-                            </div>
-                        </el-submenu>
-                        <el-menu-item-group v-else>
-                            <el-menu-item :index="itemSub.path">{{
-                                itemSub.meta.title
-                            }}</el-menu-item>
-                        </el-menu-item-group>
-                    </div>
-                </el-submenu>
-                <el-menu-item :index="item.path" v-else>
-                    <i class="el-icon-setting"></i>
+            <el-submenu
+                v-if="item.children && item.children.length != 0"
+                :index="item.path"
+            >
+                <template slot="title">
+                    <i :class="item.meta.icon"></i>
                     <span slot="title">{{ item.meta.title }}</span>
-                </el-menu-item>
-            </div>
+                </template>
+                <div
+                    v-for="(itemSub, indexSub) in item.children"
+                    :key="indexSub"
+                >
+                    <el-submenu
+                        v-if="itemSub.children && itemSub.children.length != 0"
+                        :index="itemSub.path"
+                    >
+                        <span slot="title">{{itemSub.meta.title}}</span>
+                        <el-menu-item :index="itemSub.path">{{itemSub.meta.title}}</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item v-else :index="itemSub.path">
+                        <template slot="title">
+                            <i :class="itemSub.meta.icon"></i>
+                            <span slot="title">{{itemSub.meta.title}}</span>
+                        </template>
+                    </el-menu-item>
+                </div>
+            </el-submenu>
+            <el-menu-item v-else :index="item.path">
+                <template slot="title">
+                    <i :class="item.meta.icon"></i>
+                    <span slot="title">{{item.meta.title}}</span>
+                </template>
+            </el-menu-item>
         </el-menu>
     </div>
 </template>
@@ -63,10 +58,9 @@ export default {
         return {};
     },
 
-    created() {
-    },
+    created() {},
     computed: {
-        ...mapGetters(['isCollapse','routes'])
+        ...mapGetters(['isCollapse', 'routes'])
     },
     methods: {
         handleOpen(key, keyPath) {

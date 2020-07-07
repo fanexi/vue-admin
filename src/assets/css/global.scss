@@ -1,9 +1,11 @@
 $sidebarHeight:70px;
-$bgColor:#242f42;
+$bgColor:#242424;
+$menuItem:#282c30;
 $navbar:220px;
 $shrinkNavbar:64px;
 $navbarHeight: calc(100% - #{$sidebarHeight});
 $navbarWidth: calc(100% - #{$navbar});
+$shrinkNavbarWidth: calc(100% - #{$shrinkNavbar});
 $baseMainWidth: 1279px;
 $textColor:#fff;
 
@@ -23,7 +25,6 @@ h4 {
     margin: 0;
     padding: 0;
     font-style: normal;
-    font: 12px/22px "\5B8B\4F53", Arial, Helvetica, sans-serif
 }
 
 ol,
@@ -40,7 +41,6 @@ img {
 body {
     color: #000000;
     background: $textColor;
-    text-align: center;
     margin: 0;
     padding: 0;
 }
@@ -69,9 +69,17 @@ a:hover {
 .el-menu-item {
     line-height: 56px;
 }
+.el-submenu .el-menu-item  {
+    background-color: #2a2f33 !important;
+}
+.el-submenu .el-menu-item:hover  {
+    background-color: #15181b !important;
+}
 :export {
     bgColor: $bgColor;
     navbar: $navbar;
     shrinkNavbar: $shrinkNavbar;
     textColor: $textColor;
+    menuItem:$menuItem;
+    shrinkNavbarWidth:$shrinkNavbarWidth;
 }

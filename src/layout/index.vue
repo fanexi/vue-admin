@@ -3,13 +3,17 @@
         <Sidebar></Sidebar>
         <Navbar></Navbar>
         <TagView></TagView>
-        <router-view  />
+        <div class="view" :style="{width:isCollapse?global().navbarWidth:global().shrinkNavbarWidth,paddingLeft:isCollapse?global().shrinkNavbar:global().navbar}">
+                <router-view />
+        </div>
     </div>
 </template>
 <script>
 import Sidebar from './sidebar';
 import Navbar from './navbar';
 import TagView from './tagView';
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'Layout',
     data() {
@@ -20,23 +24,23 @@ export default {
         Navbar,
         TagView
     },
-    computed: {},
-    created() {
-        console.log(this.$route);
+    computed: {
+        ...mapGetters(['isCollapse'])
     },
-    methods: {}
+    created() {},
+    methods: {
+          global() {
+            return this.$global;
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>
-.app-wrapper {   
-    position: fixed;
-    width: 100%;
-    height: 100%;
+.app-wrapper {
     .view {
-        padding-left: $navbar;
-        background: greenyellow;
-        width: $navbarWidth;
-        height: $navbarHeight;
+        height: $navbarHeight;        
+        box-sizing: border-box;
+        margin: 30px;
     }
 }
 </style>

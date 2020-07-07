@@ -2,13 +2,28 @@ $sidebarHeight:70px;
 $bgColor:#242424;
 $menuItem:#282c30;
 $navbar:220px;
+//框架默认主题色
+$base-color-default: #1890ff;
 $shrinkNavbar:64px;
 $navbarHeight: calc(100% - #{$sidebarHeight});
 $navbarWidth: calc(100% - #{$navbar});
 $shrinkNavbarWidth: calc(100% - #{$shrinkNavbar});
 $baseMainWidth: 1279px;
 $textColor:#fff;
-
+//顶部多标签页tags-bar的高度
+$base-tags-bar-height: 55px;
+$base-color-white: #fff;
+$base-border-color: #dcdfe6;
+//默认paddiing
+$base-padding: 20px;
+$base-margin: 10px;
+//顶部多标签页tags-bar中每一个item的高度
+$base-tag-item-height: 34px;
+$base-border-radius: 2px;
+$base-color-blue: $base-color-default;
+//默认层级
+$base-z-index: 999;
+//菜单li标签的高度
 body,
 div,
 ul,

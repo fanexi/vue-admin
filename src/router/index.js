@@ -3,104 +3,35 @@ import VueRouter from 'vue-router';
 import Layout from '@/layout';
 import Dashboard from '@/views/dashboard';
 import Login from '@/views/login';
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err);
+};
+
 Vue.use(VueRouter);
 // 需要权限
 export const asyncRoutes = [
     {
-        path: '/',
+        path: '/Login',
         name: 'Login',
         meta: { title: '登录', icon: 'el-icon-location' },
-        redirect: '/Login',
         component: Layout,
         children: [
             {
-                path: 'Login',
+                path: '/Login/Login1',
                 component: Login,
                 name: 'Login',
                 meta: { title: '登录', icon: 'dashboard' }
             },
             {
-                path: 'Login2',
+                path: '/Login/Login2',
                 component: Login,
-                name: 'Login',
+                name: 'Login1',
                 meta: { title: '登录', icon: 'dashboard' }
-            },
-            {
-                path: 'Login3',
-                component: Login,
-                name: 'Login',
-                meta: { title: '登录', icon: 'dashboard' },
-                children: [
-                    {
-                        path: 'Login',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    },
-                    {
-                        path: 'Login2',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    },
-                    {
-                        path: 'Login3',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    }
-                ]
             }
         ]
-    },
-    {
-        path: '/',
-        name: 'Login',
-        meta: { title: '登录', icon: 'el-icon-location' },
-        redirect: '/Login',
-        component: Layout,
-        children: [
-            {
-                path: 'Login',
-                component: Login,
-                name: 'Login',
-                meta: { title: '登录', icon: 'dashboard' }
-            },
-            {
-                path: 'Login2',
-                component: Login,
-                name: 'Login',
-                meta: { title: '登录', icon: 'dashboard' }
-            },
-            {
-                path: 'Login3',
-                component: Login,
-                name: 'Login',
-                meta: { title: '登录', icon: 'dashboard' },
-                children: [
-                    {
-                        path: 'Login',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    },
-                    {
-                        path: 'Login2',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    },
-                    {
-                        path: 'Login3',
-                        component: Login,
-                        name: 'Login',
-                        meta: { title: '登录', icon: 'dashboard' }
-                    }
-                ]
-            }
-        ]
-    },
-    
+    }
 ];
 export const routes = [
     {
@@ -108,13 +39,13 @@ export const routes = [
         name: 'dashboard',
         redirect: '/dashboard',
         component: Layout,
-        hidden:true,
+        meta: { title: 'Dashboard', icon: 'el-icon-location', affix: true },
         children: [
             {
-                path: 'dashboard',
+                path: '/dashboard',
                 component: Dashboard,
                 name: 'Dashboard',
-                meta: { title: 'Dashboard', icon: 'dashboard' }
+                meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
             }
         ]
     },

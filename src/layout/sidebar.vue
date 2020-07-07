@@ -5,14 +5,15 @@
     >
         <el-menu
             :collapse="isCollapse"
-            :default-active="$router.path"
+            :default-active="tabActive"
             :background-color="global().bgColor"
             :collapse-transition="false"
             :text-color="global().textColor"
             active-text-color="#20a0ff"
             router
-            v-for="(item, index) in routes"
-            :key="index"
+            @select="handleSelect"
+            v-for="(item, index) in asyncRoutes"
+            :key="index"           
         >
             <el-submenu
                 v-if="item.children && item.children.length != 0"
@@ -30,13 +31,15 @@
                         v-if="itemSub.children && itemSub.children.length != 0"
                         :index="itemSub.path"
                     >
-                        <span slot="title">{{itemSub.meta.title}}</span>
-                        <el-menu-item :index="itemSub.path">{{itemSub.meta.title}}</el-menu-item>
+                        <span slot="title">{{ itemSub.meta.title }}</span>
+                        <el-menu-item :index="itemSub.path">{{
+                            itemSub.meta.title
+                        }}</el-menu-item>
                     </el-submenu>
                     <el-menu-item v-else :index="itemSub.path">
                         <template slot="title">
                             <i :class="itemSub.meta.icon"></i>
-                            <span slot="title">{{itemSub.meta.title}}</span>
+                            <span slot="title">{{ itemSub.meta.title }}</span>
                         </template>
                     </el-menu-item>
                 </div>
@@ -44,7 +47,7 @@
             <el-menu-item v-else :index="item.path">
                 <template slot="title">
                     <i :class="item.meta.icon"></i>
-                    <span slot="title">{{item.meta.title}}</span>
+                    <span slot="title">{{ item.meta.title }}</span>
                 </template>
             </el-menu-item>
         </el-menu>
@@ -60,14 +63,14 @@ export default {
 
     created() {},
     computed: {
-        ...mapGetters(['isCollapse', 'routes'])
+        ...mapGetters(['isCollapse', 'asyncRoutes', 'tabActive'])
     },
     methods: {
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
+        handleSelect(key) {
+             this.$store.dispatch('permission/setTabActive', key);
         },
         global() {
             return this.$global;
@@ -84,6 +87,7 @@ export default {
     height: $navbarHeight;
     background: $bgColor;
     overflow-y: scroll;
+    z-index: $base-z-index;
     &::-webkit-scrollbar {
         display: none;
     }

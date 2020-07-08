@@ -8,7 +8,7 @@ import '@/assets/css/iconfont.css';
 import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
 Vue.use(ElementUI, {
-    size: Cookies.get('size') || 'medium' 
+    size: Cookies.get('size') || 'medium'
 });
 Vue.config.productionTip = false;
 Vue.prototype.$global = global;

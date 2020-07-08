@@ -13,8 +13,6 @@ export default {
     },
     watch: {},
     created() {
-      
-       
     }
 };
 </script>

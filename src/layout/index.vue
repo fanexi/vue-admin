@@ -6,9 +6,6 @@
         <div
             class="view"
             :style="{
-                width: isCollapse
-                    ? global().navbarWidth
-                    : global().shrinkNavbarWidth,
                 paddingLeft: isCollapse
                     ? global().shrinkNavbar
                     : global().navbar
@@ -63,7 +60,7 @@ export default {
     .view {
         height: $navbarHeight;
         box-sizing: border-box;
-        margin: 30px;
+        margin: $base-margin;
     }
 }
 </style>

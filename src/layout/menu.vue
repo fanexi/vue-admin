@@ -18,6 +18,7 @@
 <script>
 import childMenut from './childMenu';
 import { mapGetters } from 'vuex';
+// import { deepClone } from '@/utils';
 
 export default {
     name: 'Menu',
@@ -32,7 +33,14 @@ export default {
         childMenut
     },
     computed: {
-        ...mapGetters(['isCollapse', 'resRoutes', 'tabActive'])
+        ...mapGetters([
+            'isCollapse',
+            'resRoutes',
+            'tabActive',
+            'routes',
+            'tabList',
+            'tabListPath'
+        ])
     },
     watch: {
         tabActive: function(val) {
@@ -65,8 +73,13 @@ export default {
         },
         handleSelect(key) {
             this.$store.dispatch('permission/setTabActive', key);
+            if (this.tabListPath.includes(key)) return;
             let data = this.routeList.filter(item => item.path == key);
-            this.$store.dispatch('layout/setTablist', data);
+            let tabList = this.tabList;
+            if (data[0]) {
+                tabList.push(data[0]);
+            }
+            this.$store.dispatch('layout/setTablist', tabList);
         },
         handleOpen() {}
     }

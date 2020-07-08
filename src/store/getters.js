@@ -4,5 +4,6 @@ export default {
     asyncRoutes: state => state.permission.asyncRoutes,
     resRoutes: state => state.permission.resRoutes,
     tabActive: state => state.permission.tabActive,
-    tablist: state => state.layout.tablist
+    tabList: state => state.layout.tabList,
+    tabListPath: state => state.layout.tabListPath
 };

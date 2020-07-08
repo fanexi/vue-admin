@@ -5,17 +5,23 @@ export default {
         routes: routes,
         asyncRoutes: asyncRoutes,
         resRoutes: resRoutes,
-        tabActive: '/dashboard'
+        tabActive: routes[0].paht
     },
 
     mutations: {
         SET_TAB_ACTIVE: (state, data) => {
             state.tabActive = data;
+        },
+        INIT_TAB_ACTIVE: state => {
+            state.tabActive = routes[0].paht;
         }
     },
     actions: {
         setTabActive({ commit }, data) {
             commit('SET_TAB_ACTIVE', data);
+        },
+        initTabActive({ commit }, data) {
+            commit('INIT_TAB_ACTIVE', data);
         }
     }
 };

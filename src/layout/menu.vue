@@ -9,8 +9,10 @@
         :collapse="isCollapse"
         :default-active="$route.path"
         @select="handleSelect"
+        :default-openeds="openList"
+        @open="handleOpen"
     >
-        <childMenut :asyncRoutes="asyncRoutes"></childMenut>
+        <childMenut :resRoutes="resRoutes"></childMenut>
     </el-menu>
 </template>
 <script>
@@ -22,18 +24,28 @@ export default {
     data() {
         return {
             routeList: [],
-            openList: []
+            openList: [],
+            closeLst: [] //点击左侧不可以展开
         };
     },
     components: {
         childMenut
     },
     computed: {
-        ...mapGetters(['isCollapse', 'asyncRoutes'])
+        ...mapGetters(['isCollapse', 'resRoutes', 'tabActive'])
     },
-    watch: {},
+    watch: {
+        tabActive: function(val) {
+            this.closeLst.forEach(item => {
+                if (val == item.path || val == '/dashboard') {
+                    this.openList = [];
+                }
+            });
+        }
+    },
     mounted() {
-        this.routeList = this.flatten(this.asyncRoutes);
+        this.routeList = this.flatten(this.resRoutes);
+        this.closeLst = this.resRoutes.filter(item => !item.children);
         this.handleSelect(this.$route.path);
     },
     methods: {
@@ -55,7 +67,8 @@ export default {
             this.$store.dispatch('permission/setTabActive', key);
             let data = this.routeList.filter(item => item.path == key);
             this.$store.dispatch('layout/setTablist', data);
-        }
+        },
+        handleOpen() {}
     }
 };
 </script>

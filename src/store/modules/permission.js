@@ -5,7 +5,7 @@ export default {
         routes: routes,
         asyncRoutes: asyncRoutes,
         resRoutes: resRoutes,
-        tabActive: routes[0].paht
+        tabActive: routes[0].redirect
     },
 
     mutations: {
@@ -13,7 +13,7 @@ export default {
             state.tabActive = data;
         },
         INIT_TAB_ACTIVE: state => {
-            state.tabActive = routes[0].paht;
+            state.tabActive = routes[0].redirect;
         }
     },
     actions: {

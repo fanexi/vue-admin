@@ -1,10 +1,5 @@
 <template>
-    <div
-        class="tagView dfacjsb"
-        :style="{
-            paddingLeft: isCollapse ? global().shrinkNavbar : global().navbar
-        }"
-    >
+    <div class="tagView dfacjsb">
         <el-tabs
             v-model="tabKey"
             type="card"
@@ -185,7 +180,6 @@ export default {
     box-sizing: border-box;
     height: $base-tags-bar-height;
     user-select: none;
-    margin: $base-margin;
     .tagContent {
         width: $tag-view-tag-width;
         height: $base-tag-item-height;

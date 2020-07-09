@@ -2,7 +2,6 @@
     <div class="app-wrapper openSidebar" v-cloak>
         <Sidebar></Sidebar>
         <Navbar></Navbar>
-        <TagView></TagView>
         <div
             class="view"
             :style="{
@@ -11,6 +10,7 @@
                     : global().navbar
             }"
         >
+            <TagView></TagView>
             <section class="app-main">
                 <transition name="fade-transform" mode="out-in">
                     <keep-alive :include="tabActive">
@@ -73,7 +73,6 @@ export default {
     .view {
         height: $navbarHeight;
         box-sizing: border-box;
-        margin: $base-margin;
     }
 }
 </style>

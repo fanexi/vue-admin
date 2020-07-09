@@ -10,12 +10,11 @@
                     ? global().shrinkNavbar
                     : global().navbar
             }"
-            
         >
             <section class="app-main">
                 <transition name="fade-transform" mode="out-in">
                     <keep-alive :include="tabActive">
-                        <router-view :key="key" />
+                        <router-view v-if="isRouterAlive" :key="key" />
                     </keep-alive>
                 </transition>
             </section>
@@ -29,8 +28,15 @@ import TagView from './tagView';
 import { mapGetters } from 'vuex';
 export default {
     name: 'Layout',
+    provide() {
+        return {
+            reload: this.reload
+        };
+    },
     data() {
-        return {};
+        return {
+            isRouterAlive: true
+        };
     },
     components: {
         Sidebar,
@@ -47,6 +53,13 @@ export default {
     methods: {
         global() {
             return this.$global;
+        },
+        reload() {
+            // 刷新页面
+            this.isRouterAlive = false;
+            this.$nextTick(function() {
+                this.isRouterAlive = true;
+            });
         }
     }
 };

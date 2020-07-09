@@ -13,37 +13,6 @@ Vue.use(VueRouter);
 // 需要权限
 export const asyncRoutes = [
     {
-        path: '/Login',
-        name: 'Login1',
-        meta: {
-            title: '登录1',
-            icon: 'el-icon-location'
-        },
-        component: Layout,
-        children: [
-            {
-                path: '/Login/Login1',
-                component: Login,
-                name: 'Login2',
-                meta: {
-                    title: '登录2',
-                    icon: 'dashboard'
-                },
-                children: [
-                    {
-                        path: '/Login/Login11',
-                        component: Login,
-                        name: 'Login3',
-                        meta: {
-                            title: '登录3',
-                            icon: 'dashboard'
-                        }
-                    }
-                ]
-            }
-        ]
-    },
-    {
         path: '/Login10',
         name: 'Login10',
         meta: {
@@ -65,31 +34,6 @@ export const asyncRoutes = [
     }
 ];
 export const resRoutes = [
-    {
-        path: '/Login',
-        meta: {
-            title: '登录1',
-            icon: 'el-icon-location'
-        },
-        children: [
-            {
-                path: '/Login/Login1',
-                meta: {
-                    title: '登录2',
-                    icon: 'dashboard'
-                },
-                children: [
-                    {
-                        path: '/Login/Login11',
-                        meta: {
-                            title: '登录3',
-                            icon: 'dashboard'
-                        }
-                    }
-                ]
-            }
-        ]
-    },
     {
         path: '/Login10/Login13',
         meta: {
@@ -121,6 +65,14 @@ export const routes = [
                 }
             }
         ]
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+        meta: {
+            title: 'login'
+        }
     },
     ...asyncRoutes
 ];

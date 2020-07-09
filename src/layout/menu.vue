@@ -72,7 +72,7 @@ export default {
             );
         },
         handleSelect(key) {
-            this.$store.dispatch('permission/setTabActive', key);
+            this.$store.dispatch('layout/setTabActive', key);
             if (this.tabListPath.includes(key)) return;
             let data = this.routeList.filter(item => item.path == key);
             let tabList = this.tabList;

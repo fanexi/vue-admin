@@ -20,11 +20,7 @@
                 :closable="!isAffix(item)"
             ></el-tab-pane>
         </el-tabs>
-        <el-dropdown
-            trigger="click"
-            class="more"
-            @command="handleCommand"
-        >
+        <el-dropdown trigger="click" class="more" @command="handleCommand">
             <span class="operation">
                 更多操作<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -32,7 +28,7 @@
                 <el-dropdown-item command="refreshRoute">刷新</el-dropdown-item>
                 <el-dropdown-item
                     command="closeOthersTags"
-                    :disabled="tabList.length > 1 ? false : true"
+                    :disabled="tabList.length > 2 ? false : true"
                     >关闭其他</el-dropdown-item
                 >
                 <el-dropdown-item
@@ -79,7 +75,7 @@ export default {
     watch: {
         tabKey: function(path) {
             if (path == 0 || !path) return;
-            this.$store.dispatch('permission/setTabActive', path);
+            this.$store.dispatch('layout/setTabActive', path);
         },
         tabActive: function(val) {
             this.tabKey = val;
@@ -116,7 +112,7 @@ export default {
                 });
             }
             tabList = tabList.filter(item => item.path != e);
-            this.$store.dispatch('permission/setTabActive', tabActive);
+            this.$store.dispatch('layout/setTabActive', tabActive);
             this.$store.dispatch('layout/setTablist', tabList);
             this.$router.push(tabActive);
         },
@@ -175,7 +171,7 @@ export default {
         // 关闭全部
         closeAllTags() {
             this.$store.dispatch(
-                'permission/setTabActive',
+                'layout/setTabActive',
                 this.routes[0].redirect
             );
             this.$store.dispatch('layout/initTablist');

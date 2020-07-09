@@ -1,10 +1,14 @@
-import { routes } from '@/router';
+import { asyncRoutes, routes, resRoutes } from '@/router';
 export default {
     namespaced: true,
     state: {
         isCollapse: false,
         tabList: routes[0].children,
-        tabListPath: routes[0].redirect
+        tabListPath: routes[0].redirect,
+        routes: routes,
+        asyncRoutes: asyncRoutes,
+        resRoutes: resRoutes,
+        tabActive: routes[0].redirect
     },
     mutations: {
         SET_IS_COLLAPSE: (state, data) => {
@@ -19,6 +23,12 @@ export default {
         },
         SET_TAB_LIST_PATh: (state, data) => {
             state.tabListPath = data;
+        },
+        SET_TAB_ACTIVE: (state, data) => {
+            state.tabActive = data;
+        },
+        INIT_TAB_ACTIVE: state => {
+            state.tabActive = routes[0].redirect;
         }
     },
     actions: {
@@ -35,6 +45,12 @@ export default {
         },
         initTablist({ commit }) {
             commit('INIT_TAB_LIST');
+        },
+        setTabActive({ commit }, data) {
+            commit('SET_TAB_ACTIVE', data);
+        },
+        initTabActive({ commit }, data) {
+            commit('INIT_TAB_ACTIVE', data);
         }
     }
 };

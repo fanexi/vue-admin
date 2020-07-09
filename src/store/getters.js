@@ -1,9 +1,9 @@
 export default {
     isCollapse: state => state.layout.isCollapse,
-    routes: state => state.permission.routes,
-    asyncRoutes: state => state.permission.asyncRoutes,
-    resRoutes: state => state.permission.resRoutes,
-    tabActive: state => state.permission.tabActive,
+    routes: state => state.layout.routes,
+    asyncRoutes: state => state.layout.asyncRoutes,
+    resRoutes: state => state.layout.resRoutes,
+    tabActive: state => state.layout.tabActive,
     tabList: state => state.layout.tabList,
     tabListPath: state => state.layout.tabListPath
 };

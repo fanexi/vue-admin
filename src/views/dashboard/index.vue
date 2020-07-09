@@ -12,7 +12,9 @@ export default {
         };
     },
     watch: {},
-    created() {}
+    created() {
+        console.log(22222222222);
+    }
 };
 </script>
 <style lang="scss" scoped>

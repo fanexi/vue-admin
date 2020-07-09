@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-const Menu = () => import('./menu');
+import Menu from './menu';
 import { mapGetters } from 'vuex';
 export default {
     name: 'Navbar',

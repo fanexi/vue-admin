@@ -61,8 +61,22 @@ body {
     background: $textColor;
     margin: 0;
     padding: 0;
+    height: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+        Microsoft YaHei, Arial, sans-serif;
 }
 
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#app {
+    height: 100%;
+}
 .clear {
     clear: both;
     height: 1px;
@@ -110,9 +124,13 @@ a:hover {
 :focus {
     outline: 0;
 }
-.el-tabs--card>.el-tabs__header .el-tabs__item .el-icon-close {
+.el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close {
     right: -8px;
 }
+[v-cloak] {
+    display: none;
+}
+
 // 弹性布局
 .dfac {
     display: flex;

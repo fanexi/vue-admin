@@ -16,7 +16,7 @@
     </el-menu>
 </template>
 <script>
-const ChildMenut = () => import('./childMenu');
+import ChildMenut from './childMenu';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -51,7 +51,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.routeList);
         this.closeLst = this.resRoutes.filter(item => !item.children);
         this.handleSelect(this.$route.path);
     },

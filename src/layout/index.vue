@@ -1,5 +1,5 @@
 <template>
-    <div class="app-wrapper hideSidebar mobile">
+    <div class="app-wrapper openSidebar" v-cloak>
         <Sidebar></Sidebar>
         <Navbar></Navbar>
         <TagView></TagView>
@@ -10,6 +10,7 @@
                     ? global().shrinkNavbar
                     : global().navbar
             }"
+            
         >
             <section class="app-main">
                 <transition name="fade-transform" mode="out-in">
@@ -22,12 +23,10 @@
     </div>
 </template>
 <script>
-// 组件懒加载
-const Sidebar = () => import('./sidebar');
-const Navbar = () => import('./navbar');
-const TagView = () => import('./tagView');
+import Sidebar from './sidebar';
+import Navbar from './navbar';
+import TagView from './tagView';
 import { mapGetters } from 'vuex';
-
 export default {
     name: 'Layout',
     data() {
@@ -54,10 +53,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .app-wrapper {
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 100%;
-
+    overflow: hidden;
     .view {
         height: $navbarHeight;
         box-sizing: border-box;

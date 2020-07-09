@@ -110,7 +110,9 @@ a:hover {
 :focus {
     outline: 0;
 }
-
+.el-tabs--card>.el-tabs__header .el-tabs__item .el-icon-close {
+    right: -8px;
+}
 // 弹性布局
 .dfac {
     display: flex;

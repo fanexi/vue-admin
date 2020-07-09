@@ -1,4 +1,6 @@
-import { asyncRoutes, routes, resRoutes } from '@/router';
+import { asyncRoutes, routes } from '@/router';
+import { resRoutes } from '@/router/result';
+import { flatten } from '@/utils';
 export default {
     namespaced: true,
     state: {
@@ -8,7 +10,8 @@ export default {
         routes: routes,
         asyncRoutes: asyncRoutes,
         resRoutes: resRoutes,
-        tabActive: routes[0].redirect
+        tabActive: routes[0].redirect,
+        routeList: flatten(resRoutes, 'children')
     },
     mutations: {
         SET_IS_COLLAPSE: (state, data) => {

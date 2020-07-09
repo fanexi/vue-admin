@@ -12,10 +12,8 @@
                 <child-menu :resRoutes="item.children"></child-menu>
             </el-submenu>
             <el-menu-item v-else :index="item.path">
-                <template slot="title">
-                    <i :class="item.meta.icon"></i>
-                    <span>{{ item.meta.title }}</span>
-                </template>
+                <i :class="item.meta.icon"></i>
+                <span slot="title">{{ item.meta.title }}</span>
             </el-menu-item>
         </label>
     </div>
@@ -24,7 +22,6 @@
 <script>
 export default {
     name: 'childMenu',
-    props: ['resRoutes'],
-    created() {}
+    props: ['resRoutes']
 };
 </script>

@@ -8,18 +8,44 @@ export default {
     name: 'Login',
     data() {
         return {
-            list: []
+            redirect: undefined,
+            otherQuery: undefined
         };
     },
-    watch: {},
+    watch: {
+        $route: {
+            handler: function(route) {
+                const query = route.query;
+                if (query) {
+                    this.redirect = query.redirect;
+                    this.otherQuery = this.getOtherQuery(query);
+                }
+            },
+            immediate: true
+        }
+    },
     created() {},
     methods: {
-        async login() {
-            let res =await this.$store.dispatch('user/getLogin', {
-                username: 'admin',
-                password: 'admin'
-            });
-            console.log(res);
+        login() {
+            this.$store
+                .dispatch('user/getLogin', {
+                    username: 'admin',
+                    password: 'admin'
+                })
+                .then(() => {
+                    this.$router.push({
+                        path: this.redirect,
+                        query: this.otherQuery
+                    });
+                });
+        },
+        getOtherQuery(query) {
+            return Object.keys(query).reduce((acc, cur) => {
+                if (cur !== 'redirect') {
+                    acc[cur] = query[cur];
+                }
+                return acc;
+            }, {});
         }
     }
 };

@@ -22,9 +22,10 @@
     </div>
 </template>
 <script>
-import Sidebar from './sidebar';
-import Navbar from './navbar';
-import TagView from './tagView';
+// 组件懒加载
+const Sidebar = () => import('./sidebar');
+const Navbar = () => import('./navbar');
+const TagView = () => import('./tagView');
 import { mapGetters } from 'vuex';
 
 export default {

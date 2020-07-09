@@ -1,4 +1,3 @@
-const USER_BASE_URL = {
-    login: '/api/user/login'
+export const USER_BASE_URL = {
+    loginUrl: '/api/user/login'
 };
-export { USER_BASE_URL };

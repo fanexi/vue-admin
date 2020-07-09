@@ -54,7 +54,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { deepClone } from '@/utils';
 
 export default {
     name: 'Navbar',
@@ -141,7 +140,7 @@ export default {
         },
         // 关闭左侧
         closeLeftTags() {
-            let tabList = deepClone(this.tabList);
+            let tabList = this.tabList;
             let index = this.getIndexOf();
             tabList = tabList.filter((item, i) => i == 0 || index <= i);
             this.$store.dispatch('layout/setTablist', tabList);

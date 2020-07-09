@@ -1,14 +1,22 @@
-import user from '@/api/user';
-const { login } = user;
+import { login } from '@/api/user';
+import { getToken, setToken } from '@/utils/auth';
+
 export default {
     namespaced: true,
-    state: {},
-    mutations: {},
+    state: {
+        token: getToken()
+    },
+    mutations: {
+        SET_TOKEN: (state, data) => {
+            state.token = data;
+        }
+    },
     actions: {
-        getLogin: async (state, params) => {
+        getLogin: async ({ commit }, params) => {
             try {
                 let { data } = await login(params);
-                return data;
+                setToken(data.token);
+                commit('SET_TOKEN', data.token);
             } catch (error) {
                 console.log(error);
             }

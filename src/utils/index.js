@@ -32,3 +32,20 @@ export function param2Obj(url) {
             '"}'
     );
 }
+
+// 多维数组变一维数组
+/**
+ * @param {Array}
+ * @returns {String}
+ */
+export function flatten(arr, name) {
+    return [].concat(
+        ...arr.map(item => {
+            if (item[name] && item[name].length != 0) {
+                return [].concat(item, ...flatten(item[name], name));
+            } else {
+                return [].concat(item);
+            }
+        })
+    );
+}

@@ -1,12 +1,10 @@
 import http from '@/utils/http.js';
 import { USER_BASE_URL } from './index';
-const { login } = USER_BASE_URL;
-export default {
-    login: data => {
-        return http({
-            url: login, // 假地址 自行替换
-            method: 'post',
-            data
-        });
-    }
-};
+const { loginUrl } = USER_BASE_URL;
+export function login(data) {
+    return http({
+        url: loginUrl,
+        method: 'post',
+        data
+    });
+}

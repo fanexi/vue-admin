@@ -5,5 +5,6 @@ export default {
     resRoutes: state => state.layout.resRoutes,
     tabActive: state => state.layout.tabActive,
     tabList: state => state.layout.tabList,
-    tabListPath: state => state.layout.tabListPath
+    tabListPath: state => state.layout.tabListPath,
+    routeList: state => state.layout.routeList
 };

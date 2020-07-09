@@ -1,47 +1,63 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Layout from '@/layout';
-import Dashboard from '@/views/dashboard';
-import Login from '@/views/login';
+// 路由懒加载
+const Dashboard = () => import('@/views/dashboard');
+const Login = () => import('@/views/login');
+const User = () => import('@/views/user');
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err);
 };
-
 Vue.use(VueRouter);
-// 需要权限
+// 需要登录,可以配置权限
 export const asyncRoutes = [
     {
-        path: '/Login10',
-        name: 'Login10',
-        meta: {
-            title: '登录',
-            icon: 'el-icon-location'
-        },
+        path: '/userMan',
+        name: '用户管理',
         component: Layout,
         children: [
             {
-                path: '/Login10/Login13',
-                component: Login,
-                name: 'Login11',
+                path: '/userMan',
+                component: User,
                 meta: {
-                    title: '登录',
-                    icon: 'dashboard'
+                    roles: ['admin']
                 }
+            }
+        ]
+    },
+    {
+        path: '/auth',
+        name: '权限管理',
+        component: Layout,
+        children: [
+            {
+                name: '用户',
+                path: '/user',
+                component: User,
+                children: [
+                    {
+                        name: '子用户',
+                        path: '/auth/user/list',
+                        component: User
+                    },
+                    {
+                        name: '子角色',
+                        path: '/auth/role/list',
+                        component: User
+                    }
+                ]
+            },
+            {
+                name: '角色',
+                path: '/role',
+                component: User
             }
         ]
     }
 ];
-export const resRoutes = [
-    {
-        path: '/Login10/Login13',
-        meta: {
-            title: '登录',
-            icon: 'el-icon-location'
-        }
-    }
-];
+// 需要在permission中whiteList配置path,无需登录
 export const routes = [
     {
         path: '/',

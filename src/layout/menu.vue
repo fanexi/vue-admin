@@ -12,25 +12,23 @@
         :default-openeds="openList"
         @open="handleOpen"
     >
-        <childMenut :resRoutes="resRoutes"></childMenut>
+        <ChildMenut :resRoutes="resRoutes"></ChildMenut>
     </el-menu>
 </template>
 <script>
-import childMenut from './childMenu';
+const ChildMenut = () => import('./childMenu');
 import { mapGetters } from 'vuex';
-// import { deepClone } from '@/utils';
 
 export default {
     name: 'Menu',
     data() {
         return {
-            routeList: [],
             openList: [],
             closeLst: [] //点击左侧不可以展开
         };
     },
     components: {
-        childMenut
+        ChildMenut
     },
     computed: {
         ...mapGetters([
@@ -39,7 +37,8 @@ export default {
             'tabActive',
             'routes',
             'tabList',
-            'tabListPath'
+            'tabListPath',
+            'routeList'
         ])
     },
     watch: {
@@ -52,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        this.routeList = this.flatten(this.resRoutes);
+        console.log(this.routeList);
         this.closeLst = this.resRoutes.filter(item => !item.children);
         this.handleSelect(this.$route.path);
     },
@@ -60,17 +59,7 @@ export default {
         global() {
             return this.$global;
         },
-        flatten(arr) {
-            return [].concat(
-                ...arr.map(item => {
-                    if (item.children && item.children.length != 0) {
-                        return [].concat(item, ...this.flatten(item.children));
-                    } else {
-                        return [].concat(item);
-                    }
-                })
-            );
-        },
+
         handleSelect(key) {
             this.$store.dispatch('layout/setTabActive', key);
             if (this.tabListPath.includes(key)) return;

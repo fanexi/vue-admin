@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 export default {
     name: 'Login',
     data() {
@@ -15,13 +14,14 @@ export default {
     watch: {},
     created() {},
     methods: {
-        login(){
-            axios.post('/user/login').then(res=> {
-                let {data}=res.data
-                console.log(data);
-            })
+        async login() {
+            let res =await this.$store.dispatch('user/getLogin', {
+                username: 'admin',
+                password: 'admin'
+            });
+            console.log(res);
         }
-    },
+    }
 };
 </script>
 <style lang="scss" scoped>

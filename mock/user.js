@@ -19,7 +19,9 @@ export default [
         url: '/user/login',
         type: 'post',
         response: config => {
-            console.log(config);
+            let { username, password } = config.body;
+            console.log(username);
+            console.log(password);
             return {
                 status: 200,
                 message: 'success',

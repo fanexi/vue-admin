@@ -1,5 +1,13 @@
 <template>
-    <div class="tagView dfacjsb">
+    <div
+        class="tagView dfacjsb"
+        :style="{
+            left: isCollapse ? global().shrinkNavbar : global().navbar,
+            width: isCollapse
+                ? global().shrinkNavbarWidth
+                : global().navbarWidth
+        }"
+    >
         <el-tabs
             v-model="tabKey"
             type="card"
@@ -15,7 +23,12 @@
                 :closable="!isAffix(item)"
             ></el-tab-pane>
         </el-tabs>
-        <el-dropdown trigger="click" class="more" @command="handleCommand">
+        <el-dropdown
+            align="right"
+            trigger="click"
+            class="more"
+            @command="handleCommand"
+        >
             <span class="operation">
                 更多操作<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -176,10 +189,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tagView {
-    position: relative;
-    box-sizing: border-box;
     height: $base-tags-bar-height;
     user-select: none;
+    position: absolute;
+    top: $sidebarHeight;
+    padding: 0 $base-padding-default;
+    background: $base-bg-color;
+    box-sizing: border-box;
+    z-index: $base-z-index;
     .tagContent {
         width: $tag-view-tag-width;
         height: $base-tag-item-height;

@@ -6,18 +6,19 @@ $navbar: 220px;
 $base-color-default: #1890ff;
 $login-color-default: #2d3a4b;
 $shrinkNavbar: 64px;
-$navbarHeight: calc(100% - #{$sidebarHeight});
-$navbarWidth: calc(100% - #{$navbar});
-$shrinkNavbarWidth: calc(100% - #{$shrinkNavbar});
 $baseMainWidth: 1279px;
 $textColor: #fff;
 //顶部多标签页tags-bar的高度
-$base-tags-bar-height: 55px;
+$base-tags-bar-height: 54px;
 $base-color-white: #fff;
 $base-border-color: #dcdfe6;
+$base-bg-color-default: #f0f0f0;
+$base-bg-color: #f5f5f5;
 //默认paddiing
 $base-padding: 20px;
+$base-padding-default: 10px;
 $base-margin: 20px;
+$base-margin-default: 10px;
 //顶部多标签页tags-bar中每一个item的高度
 $base-tag-item-height: 34px;
 $base-border-radius: 2px;
@@ -26,6 +27,10 @@ $base-color-blue: $base-color-default;
 $base-z-index: 999;
 $tag-view-more: 100px;
 $tag-view-tag-width: calc(100% - #{$tag-view-more});
+$navbarHeight: calc(100% - #{$sidebarHeight});
+$navbarWidth: calc(100% - #{$navbar});
+$shrinkNavbarWidth: calc(100% - #{$shrinkNavbar});
+$app-main-height: calc(100% - #{$base-tags-bar-height});
 //菜单li标签的高度
 body,
 div,
@@ -95,21 +100,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.el-menu {
-    border-right: none;
-}
-
-.el-menu-item {
-    line-height: 56px;
-}
-
-.el-submenu .el-menu-item {
-    background-color: #2a2f33 !important;
-}
-
-.el-submenu .el-menu-item:hover {
-    background-color: #15181b !important;
-}
 
 /*隐藏文字*/
 .el-menu--collapse .el-submenu__title span {
@@ -148,4 +138,6 @@ a:hover {
     textColor: $textColor;
     menuItem: $menuItem;
     shrinkNavbarWidth: $shrinkNavbarWidth;
+    navbarWidth: $navbarWidth;
+    appMainHeight: $app-main-height;
 }

@@ -72,7 +72,19 @@ export default {
     overflow: hidden;
     .view {
         height: $navbarHeight;
+        background: $base-bg-color-default;
+        overflow: auto;
+        padding-bottom: $base-padding;
         box-sizing: border-box;
+        .app-main {
+            padding: $base-tags-bar-height $base-padding $base-padding;
+            margin: 0 $base-margin-default $base-margin-default;
+            background: $base-color-white;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ebeef5;
+        }
     }
 }
 </style>

@@ -75,7 +75,7 @@ export const routes = [
                 component: Dashboard,
                 name: 'Dashboard',
                 meta: {
-                    title: 'Dashboard',
+                    title: '首页',
                     icon: 'dashboard',
                     affix: true
                 }

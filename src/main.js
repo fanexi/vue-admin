@@ -8,15 +8,18 @@ import '@/assets/css/iconfont.css';
 import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
 import './permission'; // permission control
+import Echarts from 'echarts';
 // if (process.env.NODE_ENV === 'development') {
-    const { mockXHR } = require('../mock');
-    mockXHR();
+const { mockXHR } = require('../mock');
+mockXHR();
 // }
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium'
 });
 Vue.config.productionTip = false;
 Vue.prototype.$global = global;
+Vue.prototype.$echarts = Echarts;
+
 new Vue({
     el: '#app',
     router,

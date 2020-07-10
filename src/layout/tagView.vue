@@ -233,6 +233,7 @@ export default {
     }
     .more {
         width: $tag-view-more;
+        min-width: $tag-view-more;
         padding-left: $base-padding;
         height: $base-tag-item-height;
         line-height: $base-tag-item-height;

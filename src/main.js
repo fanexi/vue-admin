@@ -14,7 +14,7 @@ import CountTo from 'vue-count-to';
 const { mockXHR } = require('../mock');
 mockXHR();
 // }
-Vue.component("CountTo",CountTo)
+Vue.component('CountTo', CountTo);
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium'
 });

@@ -8,10 +8,10 @@ import '@/assets/css/iconfont.css';
 import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
 import './permission'; // permission control
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
     const { mockXHR } = require('../mock');
     mockXHR();
-}
+// }
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium'
 });

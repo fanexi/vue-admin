@@ -1,6 +1,21 @@
 <template>
     <div class="hemoIndex">
-        <div class="bar" id="chart1"></div>
+        <CountTo
+            :startVal="startVal"
+            :endVal="endVal"
+            :duration="3000"
+        ></CountTo>
+        <el-row>
+            <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+                <div class="bar" id="chart1"></div>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+                <div class="bar" id="chart2"></div>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+                <div class="bar" id="chart3"></div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
@@ -8,6 +23,9 @@ import 'echarts/lib/chart/bar';
 export default {
     data() {
         return {
+            startVal: 0,
+
+            endVal: 2017,
             items2: {
                 title: {
                     text: 'ECharts 入门示例'
@@ -30,7 +48,11 @@ export default {
     methods: {
         init() {
             this.chart1 = this.$echarts.init(document.getElementById('chart1'));
+            this.chart2 = this.$echarts.init(document.getElementById('chart2'));
+            this.chart3 = this.$echarts.init(document.getElementById('chart3'));
             this.chart1.setOption(this.items2);
+            this.chart2.setOption(this.items2);
+            this.chart3.setOption(this.items2);
         }
     },
     mounted() {
@@ -38,11 +60,13 @@ export default {
     }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .hemoIndex {
     .bar {
-        width: 300px;
+        width: 100%;
         height: 300px;
+        padding: 0 30px;
+        box-sizing: border-box;
     }
 }
 </style>

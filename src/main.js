@@ -9,10 +9,12 @@ import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
 import './permission'; // permission control
 import Echarts from 'echarts';
+import CountTo from 'vue-count-to';
 // if (process.env.NODE_ENV === 'development') {
 const { mockXHR } = require('../mock');
 mockXHR();
 // }
+Vue.component("CountTo",CountTo)
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium'
 });

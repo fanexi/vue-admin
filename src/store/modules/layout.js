@@ -11,7 +11,7 @@ export default {
         asyncRoutes: asyncRoutes,
         resRoutes: resRoutes,
         tabActive: routes[0].redirect,
-        routeList: flatten(resRoutes, 'children')
+        routeList: flatten(asyncRoutes, 'children')
     },
     mutations: {
         SET_IS_COLLAPSE: (state, data) => {

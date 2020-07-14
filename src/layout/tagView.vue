@@ -81,7 +81,6 @@ export default {
     },
     watch: {
         tabKey: function(path) {
-            if (path == 0 || !path) return;
             this.$store.dispatch('layout/setTabActive', path);
         },
         tabActive: function(val) {

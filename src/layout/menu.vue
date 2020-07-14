@@ -12,7 +12,7 @@
         :default-openeds="openList"
         @open="handleOpen"
     >
-        <ChildMenut :resRoutes="resRoutes"></ChildMenut>
+        <ChildMenut :asyncRoutes="asyncRoutes"></ChildMenut>
     </el-menu>
 </template>
 <script>
@@ -33,7 +33,7 @@ export default {
     computed: {
         ...mapGetters([
             'isCollapse',
-            'resRoutes',
+            'asyncRoutes',
             'tabActive',
             'routes',
             'tabList',
@@ -43,15 +43,15 @@ export default {
     },
     watch: {
         tabActive: function(val) {
-            this.closeLst.forEach(item => {
-                if (val == item.path || val == '/dashboard') {
-                    this.openList = [];
-                }
-            });
+            if (this.closeLst.length != 0) {
+                this.closeLst.forEach(item => {
+                    if (val == item.path) this.openList = [];
+                });
+            } else if (val == '/dashboard') this.openList = [];
         }
     },
     mounted() {
-        this.closeLst = this.resRoutes.filter(item => !item.children);
+        this.closeLst = this.asyncRoutes.filter(item => !item.children);
         this.handleSelect(this.$route.path);
     },
     methods: {
@@ -62,6 +62,8 @@ export default {
         handleSelect(key) {
             this.$store.dispatch('layout/setTabActive', key);
             if (this.tabListPath.includes(key)) return;
+            console.log(this.routeList);
+
             let data = this.routeList.filter(item => item.path == key);
             let tabList = this.tabList;
             if (data[0]) {

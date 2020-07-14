@@ -1,49 +1,32 @@
 // 后台返回的数据结构
 export const resRoutes = [
     {
-        path: '/userMan',
-        meta: {
-            title: '用户管理',
-            icon: 'el-icon-location'
-        }
-    },
-    {
-        path: '/auth',
-        meta: {
-            title: '权限管理',
-            icon: 'el-icon-location'
-        },
+        path: '/userManagement',
+        meta: { title: '用户管理', icon: 'el-icon-location' },
         children: [
             {
-                path: '/user',
+                path: '/userManagement/list',
                 meta: {
-                    title: '用户',
-                    icon: 'el-icon-location'
+                    icon: 'el-icon-location',
+                    title: '用户管理'
                 },
                 children: [
                     {
-                        path: '/auth/user/list',
+                        path: '/userManagement/role',
                         meta: {
-                            title: '子用户',
-                            icon: 'el-icon-location'
+                            icon: 'el-icon-location',
+                            title: '角色管理'
                         }
                     },
                     {
-                        path: '/auth/role/list',
+                        path: '/userManagement/auth',
                         meta: {
-                            title: '子角色',
-                            icon: 'el-icon-location'
+                            icon: 'el-icon-location',
+                            title: '用户管理',
+                            roles: ['admin']
                         }
                     }
                 ]
-            },
-            {
-                path: '/role',
-
-                meta: {
-                    title: '角色',
-                    icon: 'el-icon-location'
-                }
             }
         ]
     }

@@ -76,6 +76,9 @@ export default {
     },
     created() {
         console.log(11111111111);
+    },
+    methods: {
+        onSubmit() {}
     }
 };
 </script>

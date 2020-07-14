@@ -1,6 +1,6 @@
 <template>
     <div class="menu-tree">
-        <label v-for="(item, index) in resRoutes" :key="index">
+        <label v-for="(item, index) in asyncRoutes" :key="index">
             <el-submenu
                 :index="item.path"
                 v-if="item.children && item.children != 0"
@@ -9,7 +9,7 @@
                     <i :class="item.meta.icon"></i>
                     <span>{{ item.meta.title }}</span>
                 </template>
-                <child-menu :resRoutes="item.children"></child-menu>
+                <child-menu :asyncRoutes="item.children"></child-menu>
             </el-submenu>
             <el-menu-item v-else :index="item.path">
                 <i :class="item.meta.icon"></i>
@@ -22,6 +22,6 @@
 <script>
 export default {
     name: 'childMenu',
-    props: ['resRoutes']
+    props: ['asyncRoutes']
 };
 </script>

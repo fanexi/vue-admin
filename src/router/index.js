@@ -5,6 +5,7 @@ import Layout from '@/layout';
 const Dashboard = () => import('@/views/dashboard');
 const Login = () => import('@/views/login');
 const User = () => import('@/views/user');
+const EmptyLayout = () => import('@/layout/emptyLayout');
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -14,45 +15,51 @@ Vue.use(VueRouter);
 // 需要登录,可以配置权限
 export const asyncRoutes = [
     {
-        path: '/userMan',
-        name: '用户管理',
+        path: '/userManagement',
+        name: 'userManagement',
+        meta: { title: '用户管理', icon: 'el-icon-location' },
         component: Layout,
         children: [
             {
-                path: '/userMan',
-                component: User,
+                path: '/userManagement/list',
+                name: 'userManagementList',
                 meta: {
-                    roles: ['admin']
-                }
-            }
-        ]
-    },
-    {
-        path: '/auth',
-        name: '权限管理',
-        component: Layout,
-        children: [
-            {
-                name: '用户',
-                path: '/user',
-                component: User,
+                    icon: 'el-icon-location',
+                    title: '用户管理'
+                },
+                component: EmptyLayout,
                 children: [
                     {
-                        name: '子用户',
-                        path: '/auth/user/list',
-                        component: User
+                        path: '/userManagement/role',
+                        name: 'userManagementRole',
+                        meta: {
+                            icon: 'el-icon-location',
+                            title: '角色管理'
+                        },
+                        component: EmptyLayout,
+                        children: [
+                            {
+                                path: '/userManagement/role/list',
+                                name: 'userManagementRoleLIst',
+                                meta: {
+                                    icon: 'el-icon-location',
+                                    title: 'zi角色管理'
+                                },
+                                component: Login
+                            }
+                        ]
                     },
                     {
-                        name: '子角色',
-                        path: '/auth/role/list',
+                        path: '/userManagement/auth',
+                        name: 'userManagementAuth',
+                        meta: {
+                            icon: 'el-icon-location',
+                            title: '用户管理',
+                            roles: ['admin']
+                        },
                         component: User
                     }
                 ]
-            },
-            {
-                name: '角色',
-                path: '/role',
-                component: User
             }
         ]
     }

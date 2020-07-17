@@ -5,6 +5,7 @@ import Layout from '@/layout';
 const Dashboard = () => import('@/views/dashboard');
 const Login = () => import('@/views/login');
 const User = () => import('@/views/user');
+const Auth = () => import('@/views/auth');
 // const EmptyLayout = () => import('@/layout/emptyLayout'); //三级菜单或以上配置
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
@@ -28,6 +29,24 @@ export const asyncRoutes = [
                 meta: {
                     icon: 'el-icon-location',
                     title: '无限瀑布流布局'
+                }
+            }
+        ]
+    },
+    {
+        path: '/auth',
+        name: 'auth',
+        meta: { title: '权限管理', icon: 'el-icon-location' },
+        component: Layout,
+        redirect: '/auth',
+        children: [
+            {
+                path: '/auth',
+                name: 'authList',
+                component: Auth,
+                meta: {
+                    icon: 'el-icon-location',
+                    title: '权限'
                 }
             }
         ]

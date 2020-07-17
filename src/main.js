@@ -11,15 +11,13 @@ import './permission'; // permission control
 import Echarts from 'echarts';
 // import CountTo from 'vue-count-to';
 import VueLazyLoad from 'vue-lazyload';
-import waterfall from 'vue-waterfall2'
-Vue.use(waterfall)
 // if (process.env.NODE_ENV === 'development') {
 const { mockXHR } = require('../mock');
 mockXHR();
 // }
 // Vue.component('CountTo', CountTo);
 Vue.use(ElementUI, {
-    size: Cookies.get('size') || 'medium'
+    size: Cookies.get('size') || 'small'
 });
 Vue.use(VueLazyLoad, {
     loading: require('@/assets/loadding.gif'),

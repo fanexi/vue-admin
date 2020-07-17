@@ -19,6 +19,7 @@
                 </transition>
             </section>
         </div>
+        <el-backtop target=".app-main" :visibility-height="10"></el-backtop>
     </div>
 </template>
 <script>
@@ -85,7 +86,6 @@ export default {
     .view {
         height: $navbarHeight;
         background: $base-bg-color-default;
-        overflow: auto;
         padding-bottom: $base-padding;
         box-sizing: border-box;
         .app-main {
@@ -100,7 +100,7 @@ export default {
                 100% - #{$base-margin-default} - #{$base-margin-default}
             );
             box-sizing: border-box;
-            overflow: auto;
+            min-width: 1024px;
         }
     }
 }

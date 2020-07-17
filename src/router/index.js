@@ -5,7 +5,7 @@ import Layout from '@/layout';
 const Dashboard = () => import('@/views/dashboard');
 const Login = () => import('@/views/login');
 const User = () => import('@/views/user');
-// const EmptyLayout = () => import('@/layout/emptyLayout');
+// const EmptyLayout = () => import('@/layout/emptyLayout'); //三级菜单或以上配置
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -24,10 +24,10 @@ export const asyncRoutes = [
             {
                 path: '/userManagement/list',
                 name: 'userManagementList',
-                component:User,
+                component: User,
                 meta: {
                     icon: 'el-icon-location',
-                    title: '用户管理'
+                    title: '无限瀑布流布局'
                 }
             }
         ]
@@ -66,7 +66,8 @@ export const routes = [
             title: 'login'
         }
     },
-    ...asyncRoutes
+    ...asyncRoutes,
+    { path: '*', redirect: '/' } //路由错误的时候跳转到默认页面
 ];
 const router = new VueRouter({
     routes

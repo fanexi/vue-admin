@@ -49,6 +49,18 @@ export default {
             return this.$route.path;
         }
     },
+    watch: {
+        // 用户手动改变路由地址,重新赋值
+        $route: {
+            handler: function(route) {
+                const path = route.path;
+                if (this.tabActive !== path) {
+                    this.$store.dispatch('layout/setTabActive', path);
+                }
+            },
+            immediate: true
+        }
+    },
     created() {},
     methods: {
         global() {

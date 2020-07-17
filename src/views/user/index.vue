@@ -1,12 +1,18 @@
 <template>
-  <div class="content" ref="content">
-    <vue-waterfall-easy ref="waterfall" srcKey="img" :imgWidth="290" :imgsArr="imgsArr" @scrollReachBottom='fetchImgsData'>
-      <div class="img-info" slot-scope="props">
-        <span class="some-info">{{props.value.title}}</span>
-      </div>
-      <div slot="waterfall-over">没有更多了...</div>
-    </vue-waterfall-easy>
-  </div>
+    <div class="content" ref="content">
+        <vue-waterfall-easy
+            ref="waterfall"
+            srcKey="img"
+            :imgWidth="290"
+            :imgsArr="imgsArr"
+            @scrollReachBottom="fetchImgsData"
+        >
+            <div class="img-info" slot-scope="props">
+                <span class="some-info">{{ props.value.title }}</span>
+            </div>
+            <div slot="waterfall-over">没有更多了...</div>
+        </vue-waterfall-easy>
+    </div>
 </template>
 <script>
 import vueWaterfallEasy from 'vue-waterfall-easy';
@@ -287,7 +293,7 @@ export default {
     methods: {
         fetchImgsData() {
             //获取新的图片数据的方法，用于页面滚动满足条件时调用
-            if (this.imgsArr.length > 40) {
+            if (this.imgsArr.length < 1) {
                 this.$refs.waterfall.waterfallOver();
             } else {
                 this.imgsArr = this.imgsArr.concat(this.fetchImgsArr); //数组拼接，把下一批要加载的图片放入所有图片的数组中
@@ -303,7 +309,7 @@ export default {
     }
 };
 </script>
-<style lang="scss" >
+<style lang="scss">
 .content {
     width: 100%;
     height: 100%;

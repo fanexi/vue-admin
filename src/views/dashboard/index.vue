@@ -1,10 +1,5 @@
 <template>
     <div class="hemoIndex">
-        <CountTo
-            :startVal="startVal"
-            :endVal="endVal"
-            :duration="3000"
-        ></CountTo>
         <el-row>
             <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
                 <div class="bar" id="chart1"></div>

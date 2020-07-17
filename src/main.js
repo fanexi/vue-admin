@@ -9,14 +9,21 @@ import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
 import './permission'; // permission control
 import Echarts from 'echarts';
-import CountTo from 'vue-count-to';
+// import CountTo from 'vue-count-to';
+import VueLazyLoad from 'vue-lazyload';
+import waterfall from 'vue-waterfall2'
+Vue.use(waterfall)
 // if (process.env.NODE_ENV === 'development') {
 const { mockXHR } = require('../mock');
 mockXHR();
 // }
-Vue.component('CountTo', CountTo);
+// Vue.component('CountTo', CountTo);
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'medium'
+});
+Vue.use(VueLazyLoad, {
+    loading: require('@/assets/loadding.gif'),
+    error: require('@/assets/loadding.gif')
 });
 Vue.config.productionTip = false;
 Vue.prototype.$global = global;

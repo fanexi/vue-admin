@@ -1,84 +1,316 @@
 <template>
-    <div>
-        <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="活动名称">
-                <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="活动时间">
-                <el-col :span="11">
-                    <el-date-picker
-                        type="date"
-                        placeholder="选择日期"
-                        v-model="form.date1"
-                        style="width: 100%;"
-                    ></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                    <el-time-picker
-                        placeholder="选择时间"
-                        v-model="form.date2"
-                        style="width: 100%;"
-                    ></el-time-picker>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="即时配送">
-                <el-switch v-model="form.delivery"></el-switch>
-            </el-form-item>
-            <el-form-item label="活动性质">
-                <el-checkbox-group v-model="form.type">
-                    <el-checkbox
-                        label="美食/餐厅线上活动"
-                        name="type"
-                    ></el-checkbox>
-                    <el-checkbox label="地推活动" name="type"></el-checkbox>
-                    <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                    <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="特殊资源">
-                <el-radio-group v-model="form.resource">
-                    <el-radio label="线上品牌商赞助"></el-radio>
-                    <el-radio label="线下场地免费"></el-radio>
-                </el-radio-group>
-            </el-form-item>
-            <el-form-item label="活动形式">
-                <el-input type="textarea" v-model="form.desc"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button>取消</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+  <div class="content" ref="content">
+    <vue-waterfall-easy ref="waterfall" srcKey="img" :imgWidth="290" :imgsArr="imgsArr" @scrollReachBottom='fetchImgsData'>
+      <div class="img-info" slot-scope="props">
+        <span class="some-info">{{props.value.title}}</span>
+      </div>
+      <div slot="waterfall-over">没有更多了...</div>
+    </vue-waterfall-easy>
+  </div>
 </template>
 <script>
+import vueWaterfallEasy from 'vue-waterfall-easy';
 export default {
     data() {
         return {
-            form: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            }
+            imgsArr: [
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/8a316140.png?w=377&h=451&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: 'www',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/083767f0.JPG?w=828&h=620&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '952'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/02a4f38d.jpg?w=1067&h=1067&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/589585c1.jpeg?x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/d862d932.jpg?w=1080&h=1440&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/eb4fb58f.jpg?w=1080&h=1080&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/71d19462.jpg?x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title:
+                        '贵妇级好用的水乳有哪些呢？千万不要去乱尝试贵妇级好用的水乳有哪些呢？',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/415f984f.jpeg?w=828&h=1104&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title:
+                        '千万不要去乱尝试贵妇级好用的水乳有哪些呢？千万不要去乱尝试',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/5c3e51e4.jpg?w=720&h=960&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/92761043.JPG?w=1000&h=999&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精123',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/da61c0f5.jpg?w=959&h=958&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title:
+                        '千万不要去乱尝试贵妇级好用的水乳有哪些呢？千万不要去乱尝试',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/fcd68df4.jpg?w=1080&h=1080&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/bef41e67.JPG?w=712&h=534&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/25ab20fe.JPG?w=1000&h=1200&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精123',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://ci.xiaohongshu.com/eb971d00-05ab-5b2a-ba03-52d8f544c42b?imageView2/2/w/400/q/50/format/jpg',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/4a3c1788.jpg?w=823&h=1000&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/0a89e6b7.jpg?w=1080&h=1920&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title:
+                        '千万不要去乱尝试贵妇级好用的水乳有哪些呢？千万不要去乱尝试',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/99253111.jpg?w=1080&h=1920&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精123',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/13afe9a7.jpg?x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title:
+                        '贵妇级好用的水乳有哪些呢？千万不要去乱尝试贵妇级好用的水乳有哪些呢？千万不要去乱尝试贵妇级好用的水乳有哪些呢？千万不要去乱尝试',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/98c7c4c3.jpg?w=1210&h=1210&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/54c5d7b4.jpg?w=828&h=991&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/71d19462.jpg?x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精123',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/642cb83c.jpeg?w=1080&h=1080&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/31e42833.jpg?w=750&h=750&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/92761043.JPG?w=1000&h=999&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/60cc9b8e.jpg?w=991&h=744&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '150元搞定全套护肤品，这些护肤好物必须交出来！',
+                    user: '迷人的小妖精迷人的小妖精123',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/b709ed72.jpg?w=552&h=414&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/137b50b0.jpg?x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '夏天用这款姨妈巾，让你体验真正的清爽',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '952'
+                },
+                {
+                    img:
+                        'https://image.watsons.com.cn//upload/31e42833.jpg?w=750&h=750&x-oss-process=image/resize,w_1080',
+                    avatar:
+                        'https://img.xiaohongshu.com/avatar/5b7d198a7e6e15000155f7c9.jpg@80w_80h_90q_1e_1c_1x.jpg',
+                    title: '最近浴室新宠，日系神仙好物了解一下～',
+                    user: '迷人的小妖精迷人的小妖精',
+                    like: '953'
+                }
+            ], //存放所有已加载图片的数组（即当前页面会加载的所有图片）
+            fetchImgsArr: [] //存放每次滚动时下一批要加载的图片的数组
         };
     },
-    created() {
-        console.log(11111111111);
-    },
     methods: {
-        onSubmit() {}
+        fetchImgsData() {
+            //获取新的图片数据的方法，用于页面滚动满足条件时调用
+            if (this.imgsArr.length > 40) {
+                this.$refs.waterfall.waterfallOver();
+            } else {
+                this.imgsArr = this.imgsArr.concat(this.fetchImgsArr); //数组拼接，把下一批要加载的图片放入所有图片的数组中
+            }
+        }
+    },
+    created() {
+        this.fetchImgsArr = this.imgsArr.slice(0, 15);
+    },
+
+    components: {
+        vueWaterfallEasy
     }
 };
 </script>
+<style lang="scss" >
+.content {
+    width: 100%;
+    height: 100%;
+    .vue-waterfall-easy-scroll {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+</style>

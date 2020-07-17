@@ -5,7 +5,7 @@ import Layout from '@/layout';
 const Dashboard = () => import('@/views/dashboard');
 const Login = () => import('@/views/login');
 const User = () => import('@/views/user');
-const EmptyLayout = () => import('@/layout/emptyLayout');
+// const EmptyLayout = () => import('@/layout/emptyLayout');
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -19,47 +19,16 @@ export const asyncRoutes = [
         name: 'userManagement',
         meta: { title: '用户管理', icon: 'el-icon-location' },
         component: Layout,
+        redirect: '/userManagement/list',
         children: [
             {
                 path: '/userManagement/list',
                 name: 'userManagementList',
+                component:User,
                 meta: {
                     icon: 'el-icon-location',
                     title: '用户管理'
-                },
-                component: EmptyLayout,
-                children: [
-                    {
-                        path: '/userManagement/role',
-                        name: 'userManagementRole',
-                        meta: {
-                            icon: 'el-icon-location',
-                            title: '角色管理'
-                        },
-                        component: EmptyLayout,
-                        children: [
-                            {
-                                path: '/userManagement/role/list',
-                                name: 'userManagementRoleLIst',
-                                meta: {
-                                    icon: 'el-icon-location',
-                                    title: 'zi角色管理'
-                                },
-                                component: Login
-                            }
-                        ]
-                    },
-                    {
-                        path: '/userManagement/auth',
-                        name: 'userManagementAuth',
-                        meta: {
-                            icon: 'el-icon-location',
-                            title: '用户管理',
-                            roles: ['admin']
-                        },
-                        component: User
-                    }
-                ]
+                }
             }
         ]
     }

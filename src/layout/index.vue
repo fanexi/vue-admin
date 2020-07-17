@@ -101,6 +101,7 @@ export default {
             );
             box-sizing: border-box;
             min-width: 1024px;
+            overflow: auto;
         }
     }
 }

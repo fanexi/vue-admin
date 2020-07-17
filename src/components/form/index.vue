@@ -104,7 +104,6 @@ export default {
     created() {},
     methods: {
         handleSubmit() {
-            console.log(this.form);
             this.$emit('handleSubmit', this.form);
         },
         handleReset() {

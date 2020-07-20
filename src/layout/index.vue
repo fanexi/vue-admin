@@ -88,6 +88,7 @@ export default {
         background: $base-bg-color-default;
         padding-bottom: $base-padding;
         box-sizing: border-box;
+        overflow: auto;
         .app-main {
             padding: $base-tags-bar-height $base-padding $base-padding;
             margin: $base-margin-default;

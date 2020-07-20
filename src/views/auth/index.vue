@@ -1,6 +1,12 @@
 <template>
     <div class="content" ref="content">
-        <FormData :FormData="FormData" @handleSubmit="handleSubmit" label="label1" value="id"></FormData>
+        <FormData
+            :FormData="FormData"
+            :form="form"
+            @handleSubmit="handleSubmit"
+            label="label1"
+            value="id"
+        ></FormData>
         <tableData></tableData>
     </div>
 </template>
@@ -10,10 +16,15 @@ import tableData from '@/components/table/index.vue';
 export default {
     data() {
         return {
-            FormData:[]
+            form: {
+                name: '',
+                sex: '',
+                sex1: '',
+                sex2: []
+            } //定义初始化的值,防止重置完成,不能重新赋值
         };
     },
-     components: {
+    components: {
         FormData,
         tableData
     },
@@ -35,17 +46,7 @@ export default {
                     }
                 ]
             },
-              {
-                label: '性别',
-                key: 'sex',
-                type: 'select',
-                options: [
-                    {
-                        id: '1',
-                        label1: '黄金糕'
-                    }
-                ]
-            },
+
             {
                 label: '性别',
                 key: 'sex1',
@@ -57,14 +58,13 @@ export default {
                 type: 'datetimerange'
             }
         ];
-        this.FormData=FormData
+        this.FormData = FormData;
     },
     methods: {
-        handleSubmit(data){
-            console.log(data);
+        handleSubmit() {
+            console.log(this.form);
         }
-    },
-   
+    }
 };
 </script>
 <style lang="scss"></style>

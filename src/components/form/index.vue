@@ -1,61 +1,68 @@
 <template>
     <div class="FormData">
-        <el-form ref="form" :model="form" :label-width="labelWidth">
-            <el-row>
-                <el-col
-                    :span="8"
-                    v-for="(item, index) in FormData"
-                    :key="index"
-                >
-                    <el-form-item :label="item.label" :prop="item.key">
-                        <InputData
-                            v-if="item.type == 'input'"
-                            :formObj="form"
-                            :itemKey="item.key"
-                        ></InputData>
-                        <SelectData
-                            v-if="item.type == 'select'"
-                            :formObj="form"
-                            :itemKey="item.key"
-                            :options="item.options"
-                            :label="label"
-                            :value="value"
-                        ></SelectData>
-                        <DatePickerData
-                            v-if="
-                                item.type == 'date' ||
-                                    item.type == 'dates' ||
-                                    item.type == 'datetimerange' ||
-                                    item.type == 'datetime' ||
-                                    item.type == 'daterange'
-                            "
-                            :formObj="form"
-                            :itemKey="item.key"
-                            :type="item.type"
-                            :valueFormat="valueFormat"
-                        ></DatePickerData>
-                    </el-form-item>
-                </el-col>
-                <el-col
-                    :span="8"
-                    align="right"
-                    :offset="
-                        this.FormData.length % 3 == 1
-                            ? 8
-                            : 0 || this.FormData.length % 3 == 0
-                            ? 16
-                            : 0
-                    "
-                >
-                    <el-form-item>
-                        <el-button @click="handleReset">重置</el-button>
-                        <el-button type="primary" @click="handleSubmit"
-                            >搜索</el-button
-                        >
-                    </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form>
+        <div class="panel-header dfac">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="panel-boay">
+            <el-form ref="form" :model="form" :label-width="labelWidth">
+                <el-row>
+                    <el-col
+                        :span="8"
+                        v-for="(item, index) in FormData"
+                        :key="index"
+                    >
+                        <el-form-item :label="item.label" :prop="item.key">
+                            <InputData
+                                v-if="item.type == 'input'"
+                                :formObj="form"
+                                :itemKey="item.key"
+                            ></InputData>
+                            <SelectData
+                                v-if="item.type == 'select'"
+                                :formObj="form"
+                                :itemKey="item.key"
+                                :options="item.options"
+                                :label="label"
+                                :value="value"
+                            ></SelectData>
+                            <DatePickerData
+                                v-if="
+                                    item.type == 'date' ||
+                                        item.type == 'dates' ||
+                                        item.type == 'datetimerange' ||
+                                        item.type == 'datetime' ||
+                                        item.type == 'daterange'
+                                "
+                                :formObj="form"
+                                :itemKey="item.key"
+                                :type="item.type"
+                                :valueFormat="valueFormat"
+                            ></DatePickerData>
+                        </el-form-item>
+                    </el-col>
+                    <el-col
+                        :span="8"
+                        align="right"
+                        :offset="
+                            this.FormData.length % 3 == 1
+                                ? 8
+                                : 0 || this.FormData.length % 3 == 0
+                                ? 16
+                                : 0
+                        "
+                    >
+                        <el-form-item>
+                            <el-button @click="handleReset">重置</el-button>
+                            <el-button type="primary" @click="handleSubmit"
+                                >搜索</el-button
+                            >
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
+        </div>
     </div>
 </template>
 
@@ -89,12 +96,13 @@ export default {
         // 时间格式
         valueFormat: {
             type: String
+        },
+        form: {
+            type: Object
         }
     },
     data() {
-        return {
-            form: {}
-        };
+        return {};
     },
     components: {
         InputData,
@@ -104,7 +112,7 @@ export default {
     created() {},
     methods: {
         handleSubmit() {
-            this.$emit('handleSubmit', this.form);
+            this.$emit('handleSubmit');
         },
         handleReset() {
             this.$refs.form.resetFields();
@@ -114,6 +122,25 @@ export default {
 </script>
 <style lang="scss">
 .FormData {
-    padding-top: $base-padding;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ebeef5;
+    .panel-boay {
+        margin: 20px;
+    }
+    .panel-header {
+        background-color: #f5f5f5;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        font-size: 14px;
+    }
 }
 </style>

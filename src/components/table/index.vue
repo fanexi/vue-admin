@@ -14,7 +14,6 @@
                 :key="index"
                 align="center"
                 :fixed="item.fixed"
-                :formatter="item.formatter"
                 :prop="item.prop"
                 :label="item.label"
                 :width="item.width"
@@ -39,7 +38,21 @@
                             ></el-checkbox>
                         </template>
                     </el-checkbox-group>
-                    <div v-else>{{ scope.row[item.prop] || '-' }}</div>
+                    <div v-else>
+                        {{
+                            item.formatter
+                                ? item.formatter(
+                                      scope.row[item.prop] === 0 ||
+                                          scope.row[item.prop]
+                                          ? scope.row[item.prop]
+                                          : '-'
+                                  )
+                                : scope.row[item.prop] === 0 ||
+                                  scope.row[item.prop]
+                                ? scope.row[item.prop]
+                                : '-'
+                        }}
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -47,6 +60,7 @@
 </template>
 <script>
 import soltData from './solt';
+import { formatterKey } from '@/utils';
 export default {
     data() {
         return {
@@ -68,7 +82,19 @@ export default {
                 {
                     prop: 'sex',
                     label: '性别',
-                    width: 300
+                    width: 300,
+                    formatter: row => {
+                        return formatterKey(this, row, [
+                            {
+                                label: '男',
+                                value: 1
+                            },
+                            {
+                                label: '女',
+                                value: 0
+                            }
+                        ]);
+                    }
                 },
                 {
                     prop: 'address',
@@ -108,37 +134,44 @@ export default {
                 {
                     date: '2016-05-03',
                     name: '王小虎',
-                    address: ''
+                    address: '',
+                    sex: 1
                 },
                 {
                     date: '2016-05-02',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 1
                 },
                 {
                     date: '2016-05-04',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 0
                 },
                 {
                     date: '2016-05-01',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 0
                 },
                 {
                     date: '2016-05-08',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 1
                 },
                 {
                     date: '2016-05-06',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 0
                 },
                 {
                     date: '2016-05-07',
                     name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    sex: 1
                 }
             ],
             multipleSelection: [],
@@ -206,7 +239,7 @@ export default {
                 return false;
             }
             return true;
-        },
+        }
     }
 };
 </script>

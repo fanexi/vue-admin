@@ -36,7 +36,7 @@ export const asyncRoutes = [
     {
         path: '/auth',
         name: 'auth',
-        meta: { title: '权限管理', icon: 'el-icon-location' },
+        meta: { title: '用户管理', icon: 'el-icon-location' },
         component: Layout,
         redirect: '/auth',
         children: [
@@ -46,7 +46,7 @@ export const asyncRoutes = [
                 component: Auth,
                 meta: {
                     icon: 'el-icon-location',
-                    title: '权限'
+                    title: '用户'
                 }
             }
         ]

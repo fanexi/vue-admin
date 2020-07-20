@@ -62,8 +62,6 @@ export default {
         handleSelect(key) {
             this.$store.dispatch('layout/setTabActive', key);
             if (this.tabListPath.includes(key)) return;
-            console.log(this.routeList);
-
             let data = this.routeList.filter(item => item.path == key);
             let tabList = this.tabList;
             if (data[0]) {

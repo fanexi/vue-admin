@@ -2,7 +2,7 @@
     <div class="FormData">
         <div class="panel-header dfac">
             <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+                <el-breadcrumb-item>用户</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="panel-boay">

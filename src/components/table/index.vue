@@ -1,13 +1,42 @@
 <template>
     <div class="tableData">
+        <div class="filter-container">
+            <el-button-group class="refreshBtn">
+                <el-button
+                    class="filter-item"
+                    type="primary"
+                    icon="el-icon-refresh"
+                ></el-button>
+                <el-popover placement="bottom" trigger="click" class="pop">
+                    <label v-for="(item, index) of table" :key="index">
+                        <el-checkbox
+                            v-model="item.show"
+                            @change="item.show = !item.show"
+                            >{{ item.label }}</el-checkbox
+                        >
+                        <br />
+                    </label>
+                    <el-button
+                        slot="reference"
+                        type="primary"
+                        icon="el-icon-menu"
+                        class="setting"
+                    ></el-button>
+                </el-popover>
+            </el-button-group>
+        </div>
         <el-table
             border
             :data="tableData"
             style="width: 100%"
             @selection-change="handleSelectionChange"
-            @row-click="handleRowClick"
             ref="multipleTable"
-            :row-class-name="tableRowClassName"
+            :row-key="rowKey"
+            :lazy="lazy"
+            @row-click="handleRowClick"
+            :load="load"
+            :tree-props="{ children, hasChildren }"
+            :expand-row-keys="expands"
         >
             <el-table-column
                 v-for="(item, index) in table"
@@ -18,27 +47,32 @@
                 :label="item.label"
                 :width="item.width"
                 :type="item.type"
-                :index="index"
+                :index="item[rowKey]"
+                v-if="item.show"
             >
                 <template slot-scope="scope">
-                    <soltData v-if="item.scope" :soltData="item.soltData">
+                    <soltData
+                        v-if="item.scope"
+                        @handleClick="handleClick(scope)"
+                        :soltData="item.soltData"
+                        :up="up"
+                    >
                     </soltData>
-                    <el-checkbox-group
+                    <el-checkbox
                         v-else-if="
                             item.type === 'selection' || item.type === 'radio'
                         "
-                        v-model="multipleSelection"
-                        @change="handleChecked(scope.row, item.type)"
-                    >
-                        <template v-for="(table, tableIndex) in tableData">
-                            <el-checkbox
-                                v-if="tableIndex == scope.row.index"
-                                :key="tableIndex"
-                                :label="tableIndex"
-                            ></el-checkbox>
-                        </template>
-                    </el-checkbox-group>
-                    <div v-else>
+                        @change="handleRowClick(scope.row)"
+                        :value="checkedData(scope.row[rowKey])"
+                    ></el-checkbox>
+                    <div v-else-if="item.type === 'expand'">
+                        <tableData
+                            :table="subTable"
+                            :tableData="scope.row[childrenKey]"
+                            :expand-row-keys="expands"
+                        ></tableData>
+                    </div>
+                    <template v-else>
                         {{
                             item.formatter
                                 ? item.formatter(
@@ -52,7 +86,7 @@
                                 ? scope.row[item.prop]
                                 : '-'
                         }}
-                    </div>
+                    </template>
                 </template>
             </el-table-column>
         </el-table>
@@ -60,123 +94,56 @@
 </template>
 <script>
 import soltData from './solt';
-import { formatterKey } from '@/utils';
 export default {
+    name: 'tableData',
     data() {
         return {
-            table: [
-                {
-                    type: 'selection',
-                    width: 60
-                },
-                // {
-                //     label: '#',
-                //     type: 'radio',
-                //     width: 60
-                // },
-                {
-                    prop: 'name',
-                    label: '姓名',
-                    width: 300
-                },
-                {
-                    prop: 'sex',
-                    label: '性别',
-                    width: 300,
-                    formatter: row => {
-                        return formatterKey(this, row, [
-                            {
-                                label: '男',
-                                value: 1
-                            },
-                            {
-                                label: '女',
-                                value: 0
-                            }
-                        ]);
-                    }
-                },
-                {
-                    prop: 'address',
-                    label: '地址',
-                    width: 300
-                },
-                {
-                    prop: 'date',
-                    label: '时间',
-                    width: 300
-                },
-                {
-                    label: '操作',
-                    scope: true,
-                    width: 200,
-                    fixed: 'right',
-                    soltData: [
-                        {
-                            type: 'button',
-                            value: '删除',
-                            typeBtn: 'danger'
-                        },
-                        {
-                            type: 'button',
-                            value: '增加',
-                            typeBtn: 'primary'
-                        },
-                        {
-                            type: 'button',
-                            value: '修改',
-                            typeBtn: 'warning'
-                        }
-                    ]
-                }
-            ],
-            tableData: [
-                {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '',
-                    sex: 1
-                },
-                {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 1
-                },
-                {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 0
-                },
-                {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 0
-                },
-                {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 1
-                },
-                {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 0
-                },
-                {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    sex: 1
-                }
-            ],
             multipleSelection: [],
-            selectIndex: ''
+            expands: [],
+            selectIndex: '',
+            up: []
         };
+    },
+    props: {
+        rowKey: {
+            type: String,
+            default: 'id'
+        },
+        hasChildren: {
+            type: String,
+            default: 'hasChildren'
+        },
+        children: {
+            type: String,
+            default: 'children'
+        },
+        // 折叠子数据对应字段
+        childrenKey: {
+            type: String,
+            default: 'children'
+        },
+        lazy: {
+            type: Boolean,
+            default: true
+        },
+        table: {
+            type: Array,
+            default: () => {
+                return [];
+            }
+        },
+        tableData: {
+            type: Array,
+            default: () => {
+                return [];
+            }
+        },
+        subTable: {
+            type: Array,
+            default: () => {
+                return [];
+            }
+        }
     },
     components: {
         soltData
@@ -185,6 +152,9 @@ export default {
         type: function() {
             return this.table[0] ? this.table[0].type : ''; //默认去数组第一个的type
         }
+    },
+    created() {
+        this.up = Array.from({ length: this.tableData.length }, () => false);
     },
     mounted() {},
     methods: {
@@ -200,7 +170,7 @@ export default {
             if (this.type == 'selection') {
                 this.multipleSelection = [];
                 val.forEach(item => {
-                    this.multipleSelection.push(item.index);
+                    this.multipleSelection.push(item[this.rowKey]);
                 });
             }
         },
@@ -211,24 +181,14 @@ export default {
                 this.toggleSelection(row);
             }
         },
-        tableRowClassName({ row, rowIndex }) {
-            row.index = rowIndex;
-        },
-        handleChecked(row, type) {
-            if (type == 'radio') {
-                this.handleRadio(row);
-            } else {
-                this.toggleSelection(row);
-            }
-        },
         handleRadio(row) {
-            let index = row.index + '';
+            let rowKey = row[this.rowKey] + '';
             let data = [];
-            if (this.selectIndex == index) {
+            if (this.selectIndex == rowKey) {
                 this.selectIndex = '';
             } else {
-                this.selectIndex = row.index;
-                data.push(row.index);
+                this.selectIndex = row[this.rowKey];
+                data.push(row[this.rowKey]);
             }
             this.multipleSelection = data;
         },
@@ -239,14 +199,35 @@ export default {
                 return false;
             }
             return true;
+        },
+        load(tree, treeNode, resolve) {
+            this.$emit('load', resolve);
+        },
+        checkedData(val) {
+            if (this.multipleSelection.indexOf(val) == -1) return false;
+            return true;
+        },
+        selectData() {
+            if (this.type == 'radio') {
+                return this.tableData[this.selectIndex];
+            }
+            return this.$refs.multipleTable.selection;
+        },
+        handleClick(scope) {
+            this.$refs.multipleTable.toggleRowExpansion(scope.row);
         }
     }
 };
 </script>
 <style lang="scss" scoped>
 .tableData {
-    /deep/ .el-checkbox__label {
-        display: none;
+    .filter-container {
+        margin-bottom: $base-margin;
+        float: left;
+        width: 100%;
+        .refreshBtn {
+            float: right;
+        }
     }
 }
 </style>

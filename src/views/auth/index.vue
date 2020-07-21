@@ -7,12 +7,21 @@
             label="label1"
             value="id"
         ></FormData>
-        <tableData></tableData>
+        <tableData
+            :table="table"
+            :tableData="tableData"
+            childrenKey="subList"
+            :subTable="subTable"
+            @load="load"
+            ref="tableData"
+        ></tableData>
     </div>
 </template>
 <script>
 import FormData from '@/components/form/index.vue';
 import tableData from '@/components/table/index.vue';
+import { formatterKey } from '@/utils';
+
 export default {
     data() {
         return {
@@ -58,13 +67,160 @@ export default {
                 type: 'datetimerange'
             }
         ];
+        const table = [
+            // {
+            //     type: 'selection',
+            //     width: 60
+            // },
+            {
+                label: '#',
+                type: 'radio',
+                width: 80,
+                show: true
+            },
+            {
+                type: 'expand',
+                width: 1,
+                fixed: '',
+                show: true
+            },
+            {
+                prop: 'name',
+                label: '姓名',
+                width: 300,
+                show: true
+            },
+            {
+                prop: 'sex',
+                label: '性别',
+                width: 300,
+                show: true,
+                formatter: row => {
+                    return formatterKey(this, row, [
+                        {
+                            label: '男',
+                            value: 1
+                        },
+                        {
+                            label: '女',
+                            value: 0
+                        }
+                    ]);
+                }
+            },
+            {
+                prop: 'address',
+                label: '地址',
+                width: 300,
+                show: true
+            },
+            {
+                prop: 'date',
+                label: '时间',
+                width: 100,
+                show: true
+            },
+            {
+                label: '操作',
+                scope: true,
+                width: 200,
+                show: true,
+                soltData: [
+                    {
+                        type: 'expand',
+                        value: '查看套餐'
+                    },
+                    {
+                        value: '查看套餐'
+                    }
+                ]
+            }
+        ];
+        const tableData = [
+            {
+                id: 1,
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄',
+                subList: [
+                    {
+                        id: 100,
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                date: '2016-05-04',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1517 弄'
+            },
+            {
+                id: 3,
+                date: '2016-05-01',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1519 弄'
+                // hasChildren: true //设置是否折叠,多选框不会全选
+            },
+            {
+                id: 4,
+                date: '2016-05-03',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1516 弄'
+            }
+        ];
+        const subTable = [
+            {
+                type: 'selection',
+                width: 80
+            },
+            {
+                prop: 'name',
+                label: '姓名'
+            },
+            {
+                label: '操作',
+                scope: true,
+                soltData: [
+                    {
+                        value: '查看',
+                        type: 'button'
+                    }
+                ]
+            }
+        ];
+        this.table = table;
+        this.tableData = tableData;
         this.FormData = FormData;
+        this.subTable = subTable;
     },
+    mounted() {},
     methods: {
         handleSubmit() {
+            console.log(this.$refs.tableData.selectData());
             console.log(this.form);
+        },
+        load(resolve) {
+            setTimeout(() => {
+                resolve([
+                    {
+                        id: 31,
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1519 弄'
+                    },
+                    {
+                        id: 32,
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1519 弄'
+                    }
+                ]);
+            }, 1000);
         }
     }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

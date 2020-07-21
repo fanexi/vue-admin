@@ -100,7 +100,6 @@ a:hover {
     text-decoration: underline;
 }
 
-
 /*隐藏文字*/
 .el-menu--collapse .el-submenu__title span {
     display: none;
@@ -123,6 +122,9 @@ a:hover {
 .el-message {
     min-width: auto;
 }
+.el-table--enable-row-transition .el-table__body td.el-table__expanded-cell {
+    padding: $base-padding;
+}
 // 弹性布局
 .dfac {
     display: flex;
@@ -132,6 +134,11 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.dfacjsa {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 :export {
     bgColor: $bgColor;

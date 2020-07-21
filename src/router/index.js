@@ -6,6 +6,7 @@ const Dashboard = () => import('@/views/dashboard');
 const Login = () => import('@/views/login');
 const User = () => import('@/views/user');
 const Auth = () => import('@/views/auth');
+const Home = () => import('@/views/home');
 // const EmptyLayout = () => import('@/layout/emptyLayout'); //三级菜单或以上配置
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push;
@@ -47,6 +48,15 @@ export const asyncRoutes = [
                 meta: {
                     icon: 'el-icon-location',
                     title: '用户'
+                }
+            },
+            {
+                path: '/home',
+                name: 'home',
+                component: Home,
+                meta: {
+                    icon: 'el-icon-location',
+                    title: '测试'
                 }
             }
         ]

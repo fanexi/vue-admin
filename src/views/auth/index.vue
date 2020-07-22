@@ -11,8 +11,8 @@
             :table="table"
             :tableData="tableData"
             childrenKey="subList"
-            :subTable="subTable"
             @load="load"
+            @handleClick="handleClick"
             ref="tableData"
         ></tableData>
     </div>
@@ -23,6 +23,7 @@ import tableData from '@/components/table/index.vue';
 import { formatterKey } from '@/utils';
 
 export default {
+    name: 'auth',
     data() {
         return {
             form: {
@@ -128,10 +129,38 @@ export default {
                 soltData: [
                     {
                         type: 'expand',
-                        value: '查看套餐'
-                    },
+                        value: '查看套餐',
+                        click: 'ViewPackages'
+                    }
+                ]
+            }
+        ];
+        const subTable = [
+            {
+                type: 'selection',
+                width: 80,
+                show: true
+            },
+            {
+                type: 'expand',
+                width: 1,
+                show: true,
+                fixed: ''
+            },
+            {
+                prop: 'sex',
+                label: '姓名',
+                show: true
+            },
+            {
+                label: '操作',
+                scope: true,
+                show: true,
+                soltData: [
                     {
-                        value: '查看套餐'
+                        value: '查看',
+                        type: 'expand',
+                        click: 'Look'
                     }
                 ]
             }
@@ -142,12 +171,45 @@ export default {
                 date: '2016-05-02',
                 name: '王小虎',
                 address: '上海市普陀区金沙江路 1518 弄',
+                table: subTable, //定义table数据
                 subList: [
                     {
-                        id: 100,
+                        id: 1000,
                         date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
+                        sex: '男',
+                        address: '上海市普陀区金沙江路 1518 弄',
+                        table: [
+                            //定义table数据
+                            {
+                                type: 'selection',
+                                width: 80,
+                                show: true
+                            },
+                            {
+                                prop: 'sex',
+                                label: '姓名',
+                                show: true
+                            },
+                            {
+                                label: '操作',
+                                scope: true,
+                                show: true,
+                                soltData: [
+                                    {
+                                        value: '查看11111',
+                                        click: 'Look1'
+                                    }
+                                ]
+                            }
+                        ],
+                        subList: [
+                            {
+                                id: 1001,
+                                date: '2016-05-02',
+                                name: '王小虎',
+                                address: '上海市普陀区金沙江路 1518 弄'
+                            }
+                        ]
                     }
                 ]
             },
@@ -171,30 +233,10 @@ export default {
                 address: '上海市普陀区金沙江路 1516 弄'
             }
         ];
-        const subTable = [
-            {
-                type: 'selection',
-                width: 80
-            },
-            {
-                prop: 'name',
-                label: '姓名'
-            },
-            {
-                label: '操作',
-                scope: true,
-                soltData: [
-                    {
-                        value: '查看',
-                        type: 'button'
-                    }
-                ]
-            }
-        ];
+
         this.table = table;
         this.tableData = tableData;
         this.FormData = FormData;
-        this.subTable = subTable;
     },
     mounted() {},
     methods: {
@@ -219,6 +261,14 @@ export default {
                     }
                 ]);
             }, 1000);
+        },
+        handleClick(scope) {
+            this[scope.name](scope);
+        },
+        handleViewPackages(scope) {},
+        handleLook(scope) {},
+        handleLook1(scope) {
+            console.log(scope);
         }
     }
 };

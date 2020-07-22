@@ -3,11 +3,15 @@
         <div v-for="(item, index) in soltData" :key="index">
             <el-button
                 v-if="item.type == 'button'"
-                @click="handleClick"
+                @click="handleClick('handle' + item.click,item.type)"
                 :type="item.typeBtn"
                 >{{ item.value }}</el-button
             >
-            <p class="text" @click="handleClick" v-else>
+            <p
+                class="text"
+                @click="handleClick('handle' + item.click, item.type)"
+                v-else
+            >
                 {{ item.value }}
                 <i
                     v-if="item.type == 'expand'"
@@ -37,9 +41,12 @@ export default {
         }
     },
     methods: {
-        handleClick() {
+        handleClick(name, typeClick) {
+            this.$emit('handleClickName', { name, typeClick });
             this.$emit('handleClick');
-            this.$forceUpdate();
+            if (typeClick == 'expand') {
+                this.$forceUpdate();
+            }
         }
     }
 };

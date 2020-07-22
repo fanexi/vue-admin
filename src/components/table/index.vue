@@ -54,6 +54,7 @@
                     <soltData
                         v-if="item.scope"
                         @handleClick="handleClick(scope)"
+                        @handleClickName="handleClickName"
                         :soltData="item.soltData"
                         :up="up"
                     >
@@ -67,9 +68,12 @@
                     ></el-checkbox>
                     <div v-else-if="item.type === 'expand'">
                         <tableData
-                            :table="subTable"
                             :tableData="scope.row[childrenKey]"
-                            :expand-row-keys="expands"
+                            :table="scope.row[tableKey]"
+                            @handleClick="handleClick"
+                            @handleClickName="handleClickName"
+                            :childrenKey="childrenKey"
+                            :tableKey="tableKey"
                         ></tableData>
                     </div>
                     <template v-else>
@@ -138,11 +142,10 @@ export default {
                 return [];
             }
         },
-        subTable: {
-            type: Array,
-            default: () => {
-                return [];
-            }
+        // 多个下拉绑定的table
+        tableKey: {
+            type: String,
+            default: 'table'
         }
     },
     components: {
@@ -178,7 +181,7 @@ export default {
             if (this.type == 'radio') {
                 this.handleRadio(row);
             } else {
-                this.toggleSelection(row);
+                this.toggleRowSelection(row);
             }
         },
         handleRadio(row) {
@@ -214,7 +217,17 @@ export default {
             return this.$refs.multipleTable.selection;
         },
         handleClick(scope) {
+            if (this.typeClick == 'expand') {
+                this.up[scope.$index] = !this.up[scope.$index];
+            }
+            scope.name = this.name;
+            this.$emit('handleClick', scope);
             this.$refs.multipleTable.toggleRowExpansion(scope.row);
+        },
+        handleClickName({ name, typeClick }) {
+            this.name = name;
+            this.typeClick = typeClick;
+            this.$emit('handleClickName', { name, typeClick });
         }
     }
 };

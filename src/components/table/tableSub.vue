@@ -207,15 +207,4 @@ export default {
     }
 };
 </script>
-<style lang="scss" scoped>
-.tableData {
-    .filter-container {
-        margin-bottom: $base-margin;
-        float: left;
-        width: 100%;
-        .refreshBtn {
-            float: right;
-        }
-    }
-}
-</style>
+

@@ -315,7 +315,7 @@ export default {
     height: 100%;
     .vue-waterfall-easy-scroll {
         &::-webkit-scrollbar {
-            display: none;
+           margin-left: 10px;
         }
     }
 }

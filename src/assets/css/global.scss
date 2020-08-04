@@ -125,6 +125,11 @@ a:hover {
 .el-table--enable-row-transition .el-table__body td.el-table__expanded-cell {
     padding: $base-padding;
 }
+
+.el-popover {
+    min-width: auto;
+    padding: $base-padding-default $base-padding;
+}
 // 弹性布局
 .dfac {
     display: flex;

@@ -8,13 +8,14 @@
                     icon="el-icon-refresh"
                 ></el-button>
                 <el-popover placement="bottom" trigger="click" class="pop">
-                    <label v-for="(item, index) of table" :key="index">
-                        <el-checkbox
+                    <label v-for="(item, index) of table" :key="index" >
+                        <div  v-if="item.label">
+                            <el-checkbox
                             v-model="item.show"
-                            @change="item.show = !item.show"
                             >{{ item.label }}</el-checkbox
                         >
                         <br />
+                        </div>
                     </label>
                     <el-button
                         slot="reference"

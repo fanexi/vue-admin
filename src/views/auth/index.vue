@@ -31,7 +31,11 @@ export default {
                 sex: '',
                 sex1: '',
                 sex2: []
-            } //定义初始化的值,防止重置完成,不能重新赋值
+            }, //定义初始化的值,防止重置完成,不能重新赋值
+            table: [], //初始化的值一定要有,不然数据发生改变,视图不会更新
+            FormData: [],
+            subTable: [],
+            tableData: []
         };
     },
     components: {

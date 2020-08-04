@@ -266,7 +266,9 @@ export default {
             this[scope.name](scope);
         },
         handleViewPackages(scope) {},
-        handleLook(scope) {},
+        handleLook(scope) {
+            console.log(scope);
+        },
         handleLook1(scope) {
             console.log(scope);
         }

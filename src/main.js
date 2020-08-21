@@ -11,10 +11,10 @@ import './permission'; // permission control
 import Echarts from 'echarts';
 // import CountTo from 'vue-count-to';
 import VueLazyLoad from 'vue-lazyload';
-// if (process.env.NODE_ENV === 'development') {
-const { mockXHR } = require('../mock');
-mockXHR();
-// }
+// // if (process.env.NODE_ENV === 'development') {
+// const { mockXHR } = require('../mock');
+// mockXHR();
+// // }
 // Vue.component('CountTo', CountTo);
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'small'

@@ -1,5 +1,11 @@
-import { login } from '@/api/user';
-import { getToken, setToken } from '@/utils/auth';
+import {
+    login,
+    query
+} from '@/api/user';
+import {
+    getToken,
+    setToken
+} from '@/utils/auth';
 
 export default {
     namespaced: true,
@@ -12,11 +18,25 @@ export default {
         }
     },
     actions: {
-        getLogin: async ({ commit }, params) => {
+        getLogin: async ({
+            commit
+        }, params) => {
             try {
-                let { data } = await login(params);
+                let {
+                    data
+                } = await login(params);
                 setToken(data.token);
                 commit('SET_TOKEN', data.token);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        getQuery: async (state,params) => {
+            try {
+                let {
+                    data
+                } = await query(params);
+                return data
             } catch (error) {
                 console.log(error);
             }

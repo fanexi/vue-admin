@@ -1,53 +1,53 @@
 <template>
-    <div class="Login">
-        <el-button @click="login">登录</el-button>
-    </div>
+  <div class="Login">
+    <el-button @click="login">登录</el-button>
+  </div>
 </template>
 <script>
 export default {
-    name: 'Login',
-    data() {
-        return {
-            redirect: undefined,
-            otherQuery: undefined
-        };
-    },
-    watch: {
-        $route: {
-            handler: function(route) {
-                const query = route.query;
-                if (query) {
-                    this.redirect = query.redirect;
-                    this.otherQuery = this.getOtherQuery(query);
-                }
-            },
-            immediate: true
+  name: 'Login',
+  data () {
+    return {
+      redirect: undefined,
+      otherQuery: undefined
+    };
+  },
+  watch: {
+    $route: {
+      handler: function (route) {
+        const query = route.query;
+        if (query) {
+          this.redirect = query.redirect;
+          this.otherQuery = this.getOtherQuery(query);
         }
-    },
-    created() {},
-    methods: {
-        login() {
-            this.$store
-                .dispatch('user/getLogin', {
-                    username: 'admin',
-                    password: 'admin'
-                })
-                .then(() => {
-                    this.$router.push({
-                        path: this.redirect,
-                        query: this.otherQuery
-                    });
-                });
-        },
-        getOtherQuery(query) {
-            return Object.keys(query).reduce((acc, cur) => {
-                if (cur !== 'redirect') {
-                    acc[cur] = query[cur];
-                }
-                return acc;
-            }, {});
-        }
+      },
+      immediate: true
     }
+  },
+  created () { },
+  methods: {
+    login () {
+      this.$store
+        .dispatch('user/getLogin', {
+          username: 'admin1',
+          password: 'admin1'
+        })
+        .then(() => {
+          this.$router.push({
+            path: this.redirect,
+            query: this.otherQuery
+          });
+        });
+    },
+    getOtherQuery (query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur];
+        }
+        return acc;
+      }, {});
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

@@ -7,15 +7,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/iconfont.css';
 import global from '@/assets/css/global.scss';
 import Cookies from 'js-cookie';
-import './permission'; // permission control
+import './permission'; 
 import Echarts from 'echarts';
-// import CountTo from 'vue-count-to';
 import VueLazyLoad from 'vue-lazyload';
-// // if (process.env.NODE_ENV === 'development') {
-// const { mockXHR } = require('../mock');
-// mockXHR();
-// // }
-// Vue.component('CountTo', CountTo);
+if (process.env.NODE_ENV === 'development') {
+const { mockXHR } = require('../mock');
+mockXHR();
+}
 Vue.use(ElementUI, {
     size: Cookies.get('size') || 'small'
 });

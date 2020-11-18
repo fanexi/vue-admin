@@ -1,5 +1,6 @@
 module.exports = {
     tabWidth: 4,
-    semi: true,
+    semi: false,
     singleQuote: true,
-};
+    htmlWhitespaceSensitivity: 'ignore'
+}

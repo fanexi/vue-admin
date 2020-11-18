@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "webpack --config webpack.dll.config.js&&vue-cli-service build",
     "lint": "vue-cli-service lint",
     "server": "nodemon server.js",
     "start": "node server/app.js",
-    "dll": "webpack --config webpack.dll.config.js",
-    "all": "webpack --config webpack.dll.config.js&&npm run dev"
+    "dll": "webpack --config webpack.dll.config.js"
   },
   "dependencies": {
     "axios": "0.18.1",
